@@ -1,0 +1,53 @@
+doctype html
+head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel="stylesheet" href="sass/create_account/style.css")
+    script(type='text/javascript' src='js/account.js' defer)
+
+    link(rel="shortcut icon" href="img/favicon.png" type="image/x-icon")
+    title CMA - Home
+body.bg-image
+    script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js' integrity='sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh' crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' integrity='sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ' crossorigin='anonymous')
+
+    //Log in/ Create Account
+    div#sign.container-fluid
+        ul.nav.justify-content-end
+            //back home
+            li.nav-item
+                a.nav-link(href="/") Home
+            //logo
+            li.nav-item
+                img#logo.img-fluid.mx-auto.d-block.p-2(src="img/logo32.png", alt="brain logo") 
+    
+    //Create an account
+    div#signUp
+        div.modal-dialog
+            div.modal-content
+                //modal header
+                div.modal-header
+                    h4.modal-title.mx-auto
+                        | Create an Account
+                //modal form
+                div.modal-body.d-flex.justify-content-center
+                    form.needs-validation(action='/user/dashboard' method='post' enctype="application/x-www-form-urlencoded" novalidate='')
+                        .form-group
+                            label(for='fName') First Name:
+                            input#fName.form-control(type='text' placeholder='' name='fName' required='')
+                            label(for='lName') Last Name:
+                            input#lName.form-control(type='text' placeholder='' name='lName' required='')
+                        br
+                        br
+                        .form-group.short
+                            label(for='username') Username:
+                            input#uname.form-control(type='text' placeholder='Enter username' name='username' required='')
+                        .form-group.short
+                            label(for='password') Password:
+                            input#pwd.form-control(type='password' placeholder='Enter password' name='password' required='')
+                        .form-group.short
+                            label(for='confirm') Password:
+                            input#conf.form-control(type='password' placeholder='Confirm password' name='confirm' required='')
+                        br
+                        button.btn.btn-primary(type='submit') Submit

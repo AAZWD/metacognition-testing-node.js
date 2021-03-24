@@ -1,0 +1,102 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+
+$general-bg: rgb(255, 255, 255);
+
+
+
+$text-col-1: #494E6B;
+$text-col-2: #e79821;
+
+$link-bg: #99A8D0;
+
+@include media-breakpoint-down(sm) {
+    body{
+        background-image: url('../../img/background2.png');
+    }
+}
+
+
+body {
+    background-image: url('../../img/background.png');
+    background-color: $general-bg;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+//sign in/up
+.nav-link:hover {
+    background-color: $link-bg;
+    transition: 500ms;
+}
+.nav-item:nth-of-type(3):hover{
+    background-color: transparent;
+}
+
+.nav-link {
+    color: $text-col-1;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: $text-col-2;
+}
+
+//modal
+h4.modal-title{
+    color: $text-col-2
+}
+
+button.close{
+    border: none;
+    color: $text-col-1;
+}
+
+div.modal-body button{
+    background-color: $text-col-1;
+}
+
+div.modal-body button:hover{
+    background-color: $link-bg;
+}
+
+div.modal-body .btn-primary,
+div.modal-body .btn-primary:active:focus, 
+div.modal-body .btn-primary:focus{
+    background-color: $text-col-1;
+}
+
+//blurb
+#info-card{
+    margin-top: 9%;
+}
+#info-card .card{
+    background-color: #99a8d0a2;;
+    
+}
+
+.card-body h2{
+    padding-bottom: 20px;
+    color: $text-col-1;
+    font-weight: bolder;
+}
+
+.card-body h2 span{
+    color: $text-col-2;
+}
+
+//partners
+#partners-content {
+    
+    margin-top: 5%;
+}
+
+//footer
+#footer-container {
+    text-align: center;
+    color: $text-col-2;
+    bottom: 0;;
+}

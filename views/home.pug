@@ -1,0 +1,81 @@
+doctype html
+head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel="stylesheet" href="sass/home/style.css")
+    script(type='text/javascript' src='js/login.js' defer)
+
+    link(rel="shortcut icon" href="img/favicon.png" type="image/x-icon")
+    title CMA - Home
+body.bg-image
+    script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js' integrity='sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh' crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' integrity='sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ' crossorigin='anonymous')
+
+    //Log in/ Create Account
+    div#sign.container-fluid
+        ul.nav.justify-content-end
+            //sign-in>>> open modal 
+            li.nav-item
+                a.nav-link(data-toggle="modal" href="#login") Sign In
+            //create account page
+            li.nav-item
+                a.nav-link(href="/create_account") Create Account 
+            //logo
+            li.nav-item
+                img#logo.img-fluid.mx-auto.d-block.p-2(src="img/logo32.png", alt="brain logo") 
+    //Log-in modal
+    div#login.modal
+        div.modal-dialog
+            div.modal-content
+                //modal header
+                div.modal-header
+                    h4.modal-title.mx-auto
+                        | Log In
+                    button.close(type="button" data-dismiss="modal")
+                        | &times;
+                //modal form
+                div.modal-body.d-flex.justify-content-center
+                    form.needs-validation(action='/user/dashboard' method='post' enctype="application/x-www-form-urlencoded" novalidate='')
+                        .form-group
+                            label(for='username') Username:
+                            input#uname.form-control(type='text' placeholder='Enter username' name='username' required='')
+                        .form-group
+                            label(for='password') Password:
+                            input#pwd.form-control(type='password' placeholder='Enter password' name='password' required='')
+                        br
+                        button.btn.btn-primary(type='submit') Submit
+
+    //Blurb
+    div#info-card.container-fluid
+        div.card.col-md-5.border-0
+            div.card-body
+                h2.display-4.card-title 
+                    | Clinical 
+                    span    
+                        | Metacognitive
+                    |  Assessments 
+                p.card-text 
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laboriosam est sapiente. Tempora, assumenda molestias maxime ullam excepturi officia beatae, voluptatibus tenetur eveniet vitae quo quia ratione ipsum? Earum, culpa.
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laboriosam est sapiente. Tempora, assumenda molestias maxime ullam excepturi officia beatae, voluptatibus tenetur eveniet vitae quo quia ratione ipsum? Earum, culpa.
+                br
+                h5.card-title Important Information
+                p.card-text 
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laboriosam est sapiente. Tempora, assumenda molestias maxime ullam excepturi officia beatae, voluptatibus tenetur eveniet vitae quo quia ratione ipsum? Earum, culpa.
+
+    //research partners
+    div#partners-content.col-sm-6.d-flex.justify-content-around
+        div.col-md-3.d-block.p-4.d-flex.align-items-center
+            img.img-fluid(src="img/unis/ffu.png", alt="Fake university logo", srcset="")
+        div.col-md-3.d-block.p-4.d-flex.align-items-center
+            img.img-fluid(src="img/unis/taterloo.png", alt="Fake university logo", srcset="")
+        div.col-md-3.d-block.p-4.d-flex.align-items-center
+            img.img-fluid.jus(src="img/unis/GcGill.png", alt="Fake university logo", srcset="")
+
+          
+    //footer
+    div#footer-container.container-fluid
+        footer
+            |Copyright &#169; 2008-2021 C.M.A ALL rights reserved
+
+    
