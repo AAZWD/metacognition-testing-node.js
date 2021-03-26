@@ -96,5 +96,24 @@ $det2: rgb(241, 203, 96);
 #content{
     background-color: $sec-bg;
     color: $reg-text2;
+    padding: 10px;
 }
 
+//end of layout
+
+//FORMS//
+#formbtn:hover{
+    background-color: $sec-bg;
+    border: 1px solid;
+}
+
+#formbtn, #formbtn:active:focus, 
+#formbtn:focus{
+    background-color: $gen-bg;
+    border: 1px solid;
+}
+
+//Account
+#user_info{
+    margin-bottom: 4%;
+}

@@ -19,10 +19,8 @@ app.set('view engine', 'pug');
 
 //------------------------------------------------------
 ////////////ERROR HANDLING/////////
-//accessing dash w/o login/signup
-app.get('/user/dashboard', (req, res)=>{
-    res.status(404).render('404');
-});
+//accessing anything w/o login/signup
+
 
 ////////////GET//////////////////
 //basic home page
@@ -35,10 +33,43 @@ app.get('/create_account', (req,res)=>{
     res.render('create_account');
 });
 
-//user account page
-app.get('user/account', (req,res)=>{
-    res.render('user/account');
+//dashboard
+app.get('/user/dashboard', (req,res)=>{
+    //check user logged in
+    ////
+    ///
 
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+    
+    //Get user data from th database
+    res.render('user/dashboard',
+    {
+       date: date,
+       page: 'Dashboard'
+    }
+    );
+});
+
+//user account page
+app.get('/user/account', (req,res)=>{
+    //check user logged in
+    ////
+    ///
+
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+    
+    //Get user data from th database
+    res.render('user/account',
+    {
+       date: date,
+       page: 'User Account'
+    }
+    );
+});
 
 
 /////////POST//////////////////
@@ -55,17 +86,44 @@ app.post('/user/dashboard', urlencodedParser, (req,res)=>{
     //some of these will be subtituted with SQL queries based on the current session
     res.render('user/dashboard',
     {
-       username: user.username,
+       email: user.email,
        password: user.password,
        first_name: user.fName,
        last_name: user.lName,
        date: date,
-       page: 'Dashboard'
+       page: 'Dashboard',
+       action: 'account'
     }
     
     );
 });
 
+//editing user profile account
+app.post('/user/account', urlencodedParser, (req,res)=>{
+    //check user exists in database, then
+    ////
+    ////
+
+    const user = req.body;
+    
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+    
+    //some of these will be subtituted with SQL queries based on the current session
+    res.render('user/account',
+    {
+       email: user.email,
+       password: user.password,
+       first_name: user.fName,
+       last_name: user.lName,
+       date: date,
+       page: 'User Account',
+       action: 'account'
+    }
+    
+    );
+});
 
 /*
 //make sure certain pages (ie.games or game session loader or game end page etc. are not accessible 
