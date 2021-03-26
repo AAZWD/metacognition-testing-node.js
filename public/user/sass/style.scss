@@ -1,13 +1,100 @@
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
 
 
-$general-bg: rgb(255, 255, 255);
+//colour-combos
+$reg-text: rgb(250,250,250);
+$reg-text2: rgb(11, 12, 17);
+$hed-text: rgb(73,78,110);
+$hed-text-alt: rgb(110, 116, 156);
 
+$sec-bg: rgb(250,250,250);
+$gen-bg: rgb(235,235,235);
 
+$det1: rgb(231, 163, 90);
+$det2: rgb(241, 203, 96);
 
-$text-col-1: #494E6B;
-$text-col-2: #e79821;
-$text-col-3: #F1CC5F;
+//template
+#topnav{
+    background-color: $sec-bg;
+}
 
-$link-bg: #99A8D0;
+#topnav a{
+    color: $hed-text;
+}
+
+#topnav a{
+    color: $hed-text-alt;
+}
+
+#sidenav{
+    background-color: $hed-text-alt; //change to gradient?
+    padding: 0;
+    color: $reg-text;
+    border-right: 2px solid $det2;
+}
+
+#sidenav a{
+    color: $reg-text;
+}
+
+#sidenav li a:hover{
+    color: $det2;
+}
+
+#sidenav ul {
+    height: 70%;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#sidenav ul li{
+    padding-top: 2%;
+    padding-left: 5%;
+    width: 100%;
+}
+
+#sidenav ul li a{
+    padding: 0 10px;
+} 
+#subnav{
+    padding-left: 60px !important; 
+}
+#profile{
+    margin-top: 0;
+    padding: auto;
+    background-color: $hed-text;
+    color: $reg-text;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    height: 56px;
+    font-weight: 300;
+}
+#name{
+    color: $det1;
+    font-weight: 500;
+}
+#date{
+    font-size: 0.85em;
+}
+#icon{
+    color: $reg-text;
+}
+#main{
+    padding-left: 18.66667%;
+    padding-top:100px;
+    margin: 0;
+    background-color: $gen-bg;
+    color:$reg-text;
+}
+
+#title{
+    color: $hed-text;
+    font-size: 2.25em;
+}
+#content{
+    background-color: $sec-bg;
+    color: $reg-text2;
+}
 

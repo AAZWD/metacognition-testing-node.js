@@ -23,7 +23,7 @@ body.bg-image
                 a.nav-link(href="/create_account") Create Account 
             //logo
             li.nav-item
-                img#logo.img-fluid.mx-auto.d-block.p-2(src="img/logo32.png", alt="brain logo") 
+                img#logo.img-fluid.mx-auto.d-block.p-2(src="img/logo32.png", alt="logo") 
     //Log-in modal
     div#login.modal
         div.modal-dialog
@@ -36,7 +36,7 @@ body.bg-image
                         | &times;
                 //modal form
                 div.modal-body.d-flex.justify-content-center
-                    form.needs-validation(action='/user/dashboard' method='post' enctype="application/x-www-form-urlencoded" novalidate='')
+                    form.needs-validation(action='/dashboard' method='post' enctype="application/x-www-form-urlencoded" novalidate='')
                         .form-group
                             label(for='username') Username:
                             input#uname.form-control(type='text' placeholder='Enter username' name='username' required='')

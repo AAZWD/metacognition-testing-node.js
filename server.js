@@ -18,6 +18,11 @@ app.use(express.static('public'));
 app.set('view engine', 'pug');
 
 //------------------------------------------------------
+////////////ERROR HANDLING/////////
+//accessing dash w/o login/signup
+app.get('/user/dashboard', (req, res)=>{
+    res.status(404).render('404');
+});
 
 ////////////GET//////////////////
 //basic home page
@@ -30,18 +35,34 @@ app.get('/create_account', (req,res)=>{
     res.render('create_account');
 });
 
+//user account page
+app.get('user/account', (req,res)=>{
+    res.render('user/account');
+
+
+
 /////////POST//////////////////
 //after logging in and creating an account
-app.post('/user/dashboard', urlencodedParser, (req, res) => {
+app.post('/user/dashboard', urlencodedParser, (req,res)=>{
     //check user exists in database, then
+    
     const user = req.body;
-    res.render('user/dash',
+    
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+    
+    //some of these will be subtituted with SQL queries based on the current session
+    res.render('user/dashboard',
     {
        username: user.username,
        password: user.password,
-       first_name: user.first_name,
-       last_name: user.last_name
+       first_name: user.fName,
+       last_name: user.lName,
+       date: date,
+       page: 'Dashboard'
     }
+    
     );
 });
 
