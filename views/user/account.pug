@@ -1,4 +1,30 @@
 extends ./layout.pug
 
 block content
-    p shdfbdalfbsdbgdlbsbv
+    #user_info.conatiner
+        .row
+            .col-2
+                h6 Name
+                span First Name Last Name
+        br
+        .row
+            .col-2 
+                h6 Institution
+                span FFU
+            .col-2
+                h6 Position
+                span doc
+            .col-2 
+                h6 Employee ID
+                span ##
+        br
+        .row
+            .col-3
+                h6 Email Address 
+                span blah@blah
+            .col-3
+                h6 Phone Number
+                span ##
+    
+    h3#sub_title Edit Account
+    include ./formU.pug

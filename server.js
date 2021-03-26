@@ -71,6 +71,43 @@ app.get('/user/account', (req,res)=>{
     );
 });
 
+//Register Patients
+app.get('/user/register', (req,res)=>{
+    //check user logged in
+    ////
+    ///
+
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+    
+    //Get user data from th database
+    res.render('user/register',
+    {
+       date: date,
+       page: 'Register Patients'
+    }
+    );
+});
+
+//patient directory
+app.get('/user/patient_directory', (req,res)=>{
+    //check user logged in
+    ////
+    ///
+
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+    
+    //Get user data from th database
+    res.render('user/patient_directory',
+    {
+       date: date,
+       page: 'Patient Directory'
+    }
+    );
+});
 
 /////////POST//////////////////
 //after logging in and creating an account
@@ -98,7 +135,7 @@ app.post('/user/dashboard', urlencodedParser, (req,res)=>{
     );
 });
 
-//editing user profile account
+//Editing user profile account
 app.post('/user/account', urlencodedParser, (req,res)=>{
     //check user exists in database, then
     ////
@@ -122,6 +159,58 @@ app.post('/user/account', urlencodedParser, (req,res)=>{
        action: 'account'
     }
     
+    );
+});
+
+//Registering a patient
+app.post('/user/register', urlencodedParser, (req,res)=>{
+    //check user exists in database, then
+    ////
+    ////
+
+    const user = req.body;
+    
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+    
+    //some of these will be subtituted with SQL queries based on the current session
+    res.render('user/register',
+    {
+       email: user.email,
+       password: user.password,
+       first_name: user.fName,
+       last_name: user.lName,
+       date: date,
+       page: 'Register New Patient',
+       action: 'register'
+    }
+    );
+});
+
+//Searching Directory
+app.post('/user/patient_directory', urlencodedParser, (req,res)=>{
+    //check user exists in database, then
+    ////
+    ////
+
+    const user = req.body;
+    
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+    
+    //some of these will be subtituted with SQL queries based on the current session
+    res.render('user/patient_directory',
+    {
+       email: user.email,
+       password: user.password,
+       first_name: user.fName,
+       last_name: user.lName,
+       date: date,
+       page: 'Patient Directory',
+       action: 'patient_directory'
+    }
     );
 });
 

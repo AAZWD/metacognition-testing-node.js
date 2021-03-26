@@ -1,6 +1,4 @@
--var url = '/user/' + action;
-
-form#information(action=url method='post' enctype="application/x-www-form-urlencoded")
+form#information(action='/user/account' method='post' enctype="application/x-www-form-urlencoded")
     .row.mb-1
         .col-3
             label(for='fname') First Name:
@@ -13,9 +11,9 @@ form#information(action=url method='post' enctype="application/x-www-form-urlenc
         .col
             label(for='instn') Institution:
             select.form-control(name='instn')
-                option(value="fimon fraser university") Fimon Fraser University
-                option(value="gcgill") GcGill University
-                option(value="university of roronto") University of Roronto
+                option(value="ffu") Fimon Fraser University
+                option(value="gg") GcGill University
+                option(value="uor") University of Roronto
         .col
             label(for='posn') Position:
             select.form-control(name='posn')

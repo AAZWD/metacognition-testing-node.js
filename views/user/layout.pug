@@ -6,7 +6,7 @@ head
     script(type='text/javascript' src='../user/js/script.js' defer)
     link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous")
     link(rel="shortcut icon" href="../img/favicon.png" type="image/x-icon")
-    title= 'CMA' + page
+    title= 'CMA ' + page
     
 body.bg-image
     script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
@@ -42,13 +42,12 @@ body.bg-image
             li.nav-item
                 span#icon.far.fa-address-book
                 a.nav-link.d-inline-block(href='/user/patient_directory') Patient Directory
-            li.nav-item
-                span#icon.far.fa-user
-                a.nav-link.d-inline-block(href='/user/profiles') Patient Profiles
             li#subnav.nav-item
-                a.nav-link.d-inline-block(href='/user/add_patient') Add Patient
+                span#icon.fas.fa-plus
+                a.nav-link.d-inline-block(href='/user/register') Register Patients
             li#subnav.nav-item
-                a.nav-link.d-inline-block(href='/user/edit_profile') Edit Profile
+                span#icon.fas.fa-minus
+                a.nav-link.d-inline-block(href='/user/edit_profile') Edit Profiles
             li.nav-item 
                 span#icon.far.fa-folder
                 a.nav-link.d-inline-block(href='/user/test_directory') Test Directory 

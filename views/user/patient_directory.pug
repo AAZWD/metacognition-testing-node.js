@@ -1,0 +1,18 @@
+extends ./layout.pug
+block content
+    #p_directory.conatiner
+        .row
+            .col-8
+                h6 Lorem Ipsum Dolor
+                p Search for patients by lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt exercitationem quibusdam magni nostrum, reiciendis fugit consequatur a tempora velit autem voluptatum ab sequi nulla, similique tenetur accusantium. Cum, ratione veritatis?
+        br
+        .row.mb-4
+            .col-2
+                label(for='pname') Search by Patient Name
+                input.form-control(type='text' placeholder='Name' name='pname')
+        .row.mb-4
+            .col-2
+                label(for='pid') Search by Patient ID
+                input.form-control(type='text' placeholder='ID' name='pid')
+        br
+        
