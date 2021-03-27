@@ -1,5 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
+MongoClient.connect(url, function (err, client) {
+    const db = client.db('cma');
+    const collection = db.collection('user/patient/test');
+    console.log("Connected successfully to server");
+});
+
 
 /*additional middleware
     session traacking for different users
@@ -24,17 +32,17 @@ app.set('view engine', 'pug');
 
 ////////////GET//////////////////
 //basic home page
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
     res.render('home');
 });
 
 //create account page
-app.get('/create_account', (req,res)=>{
+app.get('/create_account', (req, res) => {
     res.render('create_account');
 });
 
 //dashboard
-app.get('/user/dashboard', (req,res)=>{
+app.get('/user/dashboard', (req, res) => {
     //check user logged in
     ////
     ///
@@ -42,18 +50,18 @@ app.get('/user/dashboard', (req,res)=>{
     //get date
     let date = new Date;
     date = date.toDateString();
-    
+
     //Get user data from th database
     res.render('user/dashboard',
-    {
-       date: date,
-       page: 'Dashboard'
-    }
+        {
+            date: date,
+            page: 'Dashboard'
+        }
     );
 });
 
 //user account page
-app.get('/user/account', (req,res)=>{
+app.get('/user/account', (req, res) => {
     //check user logged in
     ////
     ///
@@ -61,18 +69,18 @@ app.get('/user/account', (req,res)=>{
     //get date
     let date = new Date;
     date = date.toDateString();
-    
+
     //Get user data from th database
     res.render('user/account',
-    {
-       date: date,
-       page: 'User Account'
-    }
+        {
+            date: date,
+            page: 'User Account'
+        }
     );
 });
 
 //Register Patients
-app.get('/user/register', (req,res)=>{
+app.get('/user/register', (req, res) => {
     //check user logged in
     ////
     ///
@@ -80,18 +88,18 @@ app.get('/user/register', (req,res)=>{
     //get date
     let date = new Date;
     date = date.toDateString();
-    
+
     //Get user data from th database
     res.render('user/register',
-    {
-       date: date,
-       page: 'Register Patients'
-    }
+        {
+            date: date,
+            page: 'Register Patients'
+        }
     );
 });
 
 //patient directory
-app.get('/user/patient_directory', (req,res)=>{
+app.get('/user/patient_directory', (req, res) => {
     //check user logged in
     ////
     ///
@@ -99,118 +107,157 @@ app.get('/user/patient_directory', (req,res)=>{
     //get date
     let date = new Date;
     date = date.toDateString();
-    
+
     //Get user data from th database
     res.render('user/patient_directory',
-    {
-       date: date,
-       page: 'Patient Directory'
-    }
+        {
+            date: date,
+            page: 'Patient Directory'
+        }
     );
 });
 
-/////////POST//////////////////
-//after logging in and creating an account
-app.post('/user/dashboard', urlencodedParser, (req,res)=>{
-    //check user exists in database, then
-    
-    const user = req.body;
-    
+//edit profiles
+app.get('/user/edit_profile', (req, res) => {
+    //check user logged in
+    ////
+    ///
+
     //get date
     let date = new Date;
     date = date.toDateString();
-    
+
+    //Get user data from th database
+    res.render('user/edit_profile',
+        {
+            date: date,
+            page: 'Edit Profiles'
+        }
+    );
+});
+/////////POST//////////////////
+//after logging in and creating an account
+app.post('/user/dashboard', urlencodedParser, (req, res) => {
+    //check user exists in database, then
+
+    const user = req.body;
+
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+
     //some of these will be subtituted with SQL queries based on the current session
     res.render('user/dashboard',
-    {
-       email: user.email,
-       password: user.password,
-       first_name: user.fName,
-       last_name: user.lName,
-       date: date,
-       page: 'Dashboard',
-       action: 'account'
-    }
-    
+        {
+            email: user.email,
+            password: user.password,
+            first_name: user.fName,
+            last_name: user.lName,
+            date: date,
+            page: 'Dashboard'
+        }
+
     );
 });
 
 //Editing user profile account
-app.post('/user/account', urlencodedParser, (req,res)=>{
+app.post('/user/account', urlencodedParser, (req, res) => {
     //check user exists in database, then
     ////
     ////
 
     const user = req.body;
-    
+
     //get date
     let date = new Date;
     date = date.toDateString();
-    
+
     //some of these will be subtituted with SQL queries based on the current session
     res.render('user/account',
-    {
-       email: user.email,
-       password: user.password,
-       first_name: user.fName,
-       last_name: user.lName,
-       date: date,
-       page: 'User Account',
-       action: 'account'
-    }
-    
+        {
+            email: user.email,
+            password: user.password,
+            first_name: user.fName,
+            last_name: user.lName,
+            date: date,
+            page: 'User Account'
+        }
+
     );
 });
 
 //Registering a patient
-app.post('/user/register', urlencodedParser, (req,res)=>{
+app.post('/user/register', urlencodedParser, (req, res) => {
     //check user exists in database, then
     ////
     ////
 
     const user = req.body;
-    
+
     //get date
     let date = new Date;
     date = date.toDateString();
-    
+
     //some of these will be subtituted with SQL queries based on the current session
     res.render('user/register',
-    {
-       email: user.email,
-       password: user.password,
-       first_name: user.fName,
-       last_name: user.lName,
-       date: date,
-       page: 'Register New Patient',
-       action: 'register'
-    }
+        {
+            email: user.email,
+            password: user.password,
+            first_name: user.fName,
+            last_name: user.lName,
+            date: date,
+            page: 'Register New Patient'
+        }
     );
 });
 
 //Searching Directory
-app.post('/user/patient_directory', urlencodedParser, (req,res)=>{
+app.post('/user/patient_directory', urlencodedParser, (req, res) => {
     //check user exists in database, then
     ////
     ////
 
     const user = req.body;
-    
+
     //get date
     let date = new Date;
     date = date.toDateString();
-    
+
     //some of these will be subtituted with SQL queries based on the current session
     res.render('user/patient_directory',
-    {
-       email: user.email,
-       password: user.password,
-       first_name: user.fName,
-       last_name: user.lName,
-       date: date,
-       page: 'Patient Directory',
-       action: 'patient_directory'
-    }
+        {
+            email: user.email,
+            password: user.password,
+            first_name: user.fName,
+            last_name: user.lName,
+            date: date,
+            page: 'Patient Directory'
+        }
+    );
+});
+
+//Searching to delete
+app.post('/user/edit_profile', urlencodedParser, (req, res) => {
+    //check user exists in database, then
+    ////
+    ////
+
+    const user = req.body;
+
+    //get date
+    let date = new Date;
+    date = date.toDateString();
+
+    //some of these will be subtituted with SQL queries based on the current session
+    res.render('user/edit_profile',
+        {
+            email: user.email,
+            password: user.password,
+            first_name: user.fName,
+            last_name: user.lName,
+            date: date,
+            page: 'Register New Patient'
+        }
     );
 });
 
@@ -232,6 +279,6 @@ app.get('/delete/:id', (req, res) => {
     res.redirect('/'); ///////AJAX LIKE!!
 })*/
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`listening on port ${port}`);
 });

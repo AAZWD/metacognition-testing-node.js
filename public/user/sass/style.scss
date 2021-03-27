@@ -87,6 +87,9 @@ $det2: rgb(241, 203, 96);
     margin: 0;
     background-color: $gen-bg;
     color:$reg-text;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 #title{

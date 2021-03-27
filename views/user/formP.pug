@@ -2,37 +2,37 @@ form#information(action='/user/register' method='post' enctype="application/x-ww
     .row.mb-1
         .col-3
             label(for='fname') First Name:
-            input.form-control(type='text' placeholder='First Name' name='fname')
+            input.form-control(type='text' placeholder='First Name' name='fname' required)
         .col-3
             label(for='lname') Last Name:
-            input.form-control(type='text' placeholder='Last Name' name='lname')
+            input.form-control(type='text' placeholder='Last Name' name='lname' required)
     br
     .row.mb-1
         .col-3
             label(for='age') Age:
-            input.form-control(type='text' placeholder='Age' name='age')
+            input.form-control(type='text' placeholder='Age' name='age' required)
         .col-3
             label(for='dob') Date of Birth:
-            input.form-control(type='date' placeholder='' name='dob')
+            input.form-control(type='date' placeholder='' name='dob' required)
     br
     .row.mb-1
         .col-3
             label(for='sex') Sex:
-            select.form-control(name='sex')
+            select.form-control(name='sex' required)
                 option(value="female") Female
                 option(value="male") Male
                 option(value="other") Other
         .col-3
             label(for='gen') Gender:
-            select.form-control(name='gen')
+            select.form-control(name='gen' required)
                 option(value="woman") Woman
                 option(value="man") Man
                 option(value="other") Other
     br
     .row.mb-1
-        .col
+        .col-4
             label(for='edu') Highest Level of Education (total years):
-            select.form-control(name='edu')
+            select.form-control(name='edu' required)
                 option(value="18") Graduate Studies(18+ years)
                 option(value="16") Undergraduate Studies(16 years)
                 option(value="14") Associates Degree/Diploma(14 years)
@@ -44,35 +44,35 @@ form#information(action='/user/register' method='post' enctype="application/x-ww
                 option(value="7") Under Grade 8
     br
     .row.mb-1
-        .col
+        .col-3
             | English As A Second Language
             br
             .form-check-inline
                 label.form-check-label
-                    input.form-check-input(type='radio' value= 'yes' name='esl') 
+                    input.form-check-input(type='radio' value= 'yes' name='esl' required) 
                     | Yes
             .form-check-inline
                 label.form-check-label
-                    input.form-check-input(type='radio' value= 'no' name='esl') 
+                    input.form-check-input(type='radio' value= 'no' name='esl' required) 
                     | No
         .col
             | Language Validity
             br
             .form-check-inline
                 label.form-check-label
-                    input.form-check-input(type='radio' value= 'yes' name='langv') 
+                    input.form-check-input(type='radio' value= 'yes' name='langv' required) 
                     | Yes
             .form-check-inline
                 label.form-check-label
-                    input.form-check-input(type='radio' value= 'no' name='langv') 
+                    input.form-check-input(type='radio' value= 'no' name='langv' required) 
                     | No
     br
     .row.mb-1
         .col-3
             label(for='diag') Axis I Diagnosis:
-            select.form-control(name='diag')
-                option(value="schizophrenia") Schizophrenia
-                option(value="schizoaffective") Schizoaffective
+            select.form-control(name='diag' required)
+                option(value="sch") Schizophrenia
+                option(value="sche") Schizoaffective
                 option(value="pnos") Psychosis Not Otherwise Specified 
                 option(value="dd") Delusional Disorder 
                 option(value="md") Mood Disorder
@@ -83,11 +83,11 @@ form#information(action='/user/register' method='post' enctype="application/x-ww
             br
             .form-check-inline
                 label.form-check-label
-                    input.form-check-input(type='radio' value= 'yes' name='meds') 
+                    input.form-check-input(type='radio' value= 'yes' name='meds' required) 
                     | Yes
             .form-check-inline
                 label.form-check-label
-                    input.form-check-input(type='radio' value= 'no' name='meds') 
+                    input.form-check-input(type='radio' value= 'no' name='meds' required) 
                     | No
         .col-4
             .form-group
