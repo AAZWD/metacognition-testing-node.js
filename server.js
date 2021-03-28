@@ -26,11 +26,9 @@ mongoose.connection.on("open", function () {
     console.log("Connected to MongoDB database.");
 });
 
-
-
-/*additional middleware
-    session tracking for different users
-*/
+//sessions
+const session = require('express-session');
+app.use(session({ secret: 'super secret', resave: false, saveUninitialized: true }));
 
 
 
@@ -53,109 +51,116 @@ app.get('/create_account', (req, res) => {
     res.render('create_account')
 });
 
-app.get('/create_account/:id', (req, res) => {
-    if (req.params.id == 1) {
-        res.render('create_account',
+//end session buffer when logging out
+app.get('/end_session', (req, res) => {
+    req.session.user = null;
+    if (req.session.user) {
+        console.log('logged in');
+    } else {
+        console.log('not authorized');
+    }
+    res.redirect('/');
+});
+
+//error page for unauthorized access
+app.get('/error', (req, res) => {
+    res.render('error');
+});
+    ////////////////AUTHORIZED ACCESS REQUIRED//////////
+//dashboard
+app.get('/user/dashboard', (req, res) => {
+    //logged in check
+    if (req.session.user) {
+        //get date
+        let date = new Date;
+        date = date.toDateString();
+        //Get user data from th database
+        res.render('user/dashboard',
             {
-                warning: "An account with this email already exists"
+                date: date,
+                page: 'Dashboard'
             }
         );
     } else {
-
+        res.redirect('/error');
     }
-});
-//dashboard
-app.get('/user/dashboard', (req, res) => {
-    //check user logged in by checking that they came in from any url except home?
-    ////
-    ///
 
-    //get date
-    let date = new Date;
-    date = date.toDateString();
-    //Get user data from th database
-    res.render('user/dashboard',
-        {
-            date: date,
-            page: 'Dashboard'
-        }
-    );
 });
 
 //user account page
 app.get('/user/account', (req, res) => {
-    //check user logged in
-    ////
-    ///
-
-    //get date
-    let date = new Date;
-    date = date.toDateString();
-
-    //Get user data from th database
-    res.render('user/account',
-        {
-            date: date,
-            page: 'User Account'
-        }
-    );
+    //logged in check
+    if (req.session.user) {
+        //get date
+        let date = new Date;
+        date = date.toDateString();
+        //Get user data from th database
+        res.render('user/user_account',
+            {
+                date: date,
+                page: 'User Account'
+            }
+        );
+    } else {
+        res.redirect('/error');
+    }
 });
 
 //Register Patients
 app.get('/user/register', (req, res) => {
-    //check user logged in
-    ////
-    ///
-
-    //get date
-    let date = new Date;
-    date = date.toDateString();
-
-    //Get user data from th database
-    res.render('user/register',
-        {
-            date: date,
-            page: 'Register Patients'
-        }
-    );
+    //logged in check
+    if (req.session.user) {
+        //get date
+        let date = new Date;
+        date = date.toDateString();
+        //Get user data from th database
+        res.render('user/register',
+            {
+                date: date,
+                page: 'Register Patients'
+            }
+        );
+    } else {
+        res.redirect('/error');
+    }
 });
 
 //patient directory
 app.get('/user/patient_directory', (req, res) => {
-    //check user logged in
-    ////
-    ///
-
-    //get date
-    let date = new Date;
-    date = date.toDateString();
-
-    //Get user data from th database
-    res.render('user/patient_directory',
-        {
-            date: date,
-            page: 'Patient Directory'
-        }
-    );
+    //logged in check
+    if (req.session.user) {
+        //get date
+        let date = new Date;
+        date = date.toDateString();
+        //Get user data from th database
+        res.render('user/patient_directory',
+            {
+                date: date,
+                page: 'Patient Directory'
+            }
+        );
+    } else {
+        res.redirect('/error');
+    }
 });
 
-//edit profiles
+//edit patient profiles
 app.get('/user/edit_profile', (req, res) => {
-    //check user logged in
-    ////
-    ///
-
-    //get date
-    let date = new Date;
-    date = date.toDateString();
-
-    //Get user data from th database
-    res.render('user/edit_profile',
-        {
-            date: date,
-            page: 'Edit Profiles'
-        }
-    );
+    //logged in check
+    if (req.session.user) {
+        //get date
+        let date = new Date;
+        date = date.toDateString();
+        //Get user data from th database
+        res.render('user/edit_profile',
+            {
+                date: date,
+                page: 'Edit Profiles'
+            }
+        );
+    } else {
+        res.redirect('/error');
+    }
 });
 
 
@@ -210,9 +215,19 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
                     let fname = 'New'
                     let lname = 'User'
                     //query fname and last naem from collection w/ enteed email
+                    //save session info
+                    //then render dash
                     userCollection.find({ email: user.email }, 'fname lname', function (err, result) {
-                        if(result[0].fname) fname = result[0].fname
-                        if(result[0].lname) lname = result[0].lname
+                        if (result[0].fname) fname = result[0].fname
+                        if (result[0].lname) lname = result[0].lname
+                        //save query result (array) to session.user
+                        req.session.user = result;
+                        //logged in check
+                        if (req.session.user) {
+                            console.log('logged in');
+                        } else {
+                            console.log('not authorized');
+                        }
                         res.render('user/dashboard',
                             {
                                 fname: fname,

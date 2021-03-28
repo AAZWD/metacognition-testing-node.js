@@ -25,16 +25,18 @@ window.onload = function () {
       event.preventDefault();
       inputs[0].style.borderColor = 'red';
       inputs[1].style.borderColor = 'red';
-    } else if (!validPass(email.value)){
+    } else if (!validEmail(email.value)){
+      event.preventDefault();
       inputs[0].style.borderColor = 'red';
       inputs[1].style.borderColor = 'black';
     } else if (!validPass(pass.value)){
+      event.preventDefault();
       inputs[0].style.borderColor = 'black';
       inputs[1].style.borderColor = 'red';
-    }else
+    }else{
+      inputs[0].style.borderColor = 'black';
+      inputs[1].style.borderColor = 'black';
       return true;
     }
   }
-
-
 };
