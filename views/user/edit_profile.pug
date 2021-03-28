@@ -7,7 +7,7 @@ block content
                 h6 Lorem Ipsum Dolor
                 p Search for patients by lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt exercitationem quibusdam magni nostrum, reiciendis fugit consequatur a tempora velit autem voluptatum ab sequi nulla, similique tenetur accusantium. Cum, ratione veritatis?
         br
-        h3#sub_title Search For Patient Profiles to Delete
+        h3#sub_title Search For Patient Profiles to Update or Delete
         .row.mb-4
             .col-2
                 label(for='pname') Search by Patient Name
@@ -37,6 +37,7 @@ block content
                             th LV 
                             th Diagnosis 
                             th Medication
+                            th Update/Delete
                     tbody
                         tr
                             td ID Number
@@ -51,8 +52,8 @@ block content
                             td LV 
                             td Diagnosis 
                             td Medication
+                            td 2 Buttons Update and Delete
                 //for each patient create a tr with one td in it
                 //will contain the test/questionnaire results and notes from patient profile
-                //onclick view edit patient profile for selected patient
-        h3#sub_title Search For Patient Profiles to Delete
-        include ./formP.pug
+                //delete will trigger an alert and then delete
+                //update will display the patient form with current details in input area

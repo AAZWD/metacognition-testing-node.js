@@ -33,12 +33,9 @@ app.use(session({ secret: 'super secret', resave: false, saveUninitialized: true
 
 
 //------------------------------------------------------
-////////////ERROR HANDLING/////////
-//accessing anything w/o login/signup
 
-/*function handleError(err){
+///Sessions Middleware////////
 
-}|*/
 
 ////////////GET//////////////////
 //basic home page
@@ -66,21 +63,32 @@ app.get('/end_session', (req, res) => {
 app.get('/error', (req, res) => {
     res.render('error');
 });
-    ////////////////AUTHORIZED ACCESS REQUIRED//////////
+////////////////AUTHORIZED ACCESS REQUIRED//////////
+
+///create function for the session check plus rendering info for layout, to reduce repitition
 //dashboard
 app.get('/user/dashboard', (req, res) => {
     //logged in check
     if (req.session.user) {
-        //get date
+        //load nav w user info        
         let date = new Date;
         date = date.toDateString();
-        //Get user data from th database
-        res.render('user/dashboard',
-            {
-                date: date,
-                page: 'Dashboard'
-            }
-        );
+        let fname = 'New'
+        let lname = 'User'
+        //query fname and last name from collection w/ email
+        userCollection.find({ email: user.email }, function (err, result) {
+            if (result[0].fname) fname = result[0].fname
+            if (result[1].lname) lname = result[1].lname
+            //Get user data from the database
+            res.render('user/dashboard',
+                {
+                    fname: fname,
+                    lname: lname,
+                    date: date,
+                    page: 'Dashboard'
+                }
+            );
+        });
     } else {
         res.redirect('/error');
     }
@@ -91,16 +99,25 @@ app.get('/user/dashboard', (req, res) => {
 app.get('/user/account', (req, res) => {
     //logged in check
     if (req.session.user) {
-        //get date
+        //load nav w user info        
         let date = new Date;
         date = date.toDateString();
-        //Get user data from th database
-        res.render('user/user_account',
-            {
-                date: date,
-                page: 'User Account'
-            }
-        );
+        let fname = 'New'
+        let lname = 'User'
+        //query fname and last name from collection w/ email
+        userCollection.find({ email: user.email }, function (err, result) {
+            if (result[0].fname) fname = result[0].fname
+            if (result[1].lname) lname = result[1].lname
+            //Get user data from the database
+            res.render('user/account',
+                {
+                    fname: fname,
+                    lname: lname,
+                    date: date,
+                    page: 'User Account'
+                }
+            );
+        });
     } else {
         res.redirect('/error');
     }
@@ -211,15 +228,15 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
                 //user email + pass in document
                 if (exists) {
                     console.log('the email + pass combo exists:', exists);
-                    //load dashboard w user info
+                    //load nav w user info
                     let fname = 'New'
                     let lname = 'User'
                     //query fname and last naem from collection w/ enteed email
                     //save session info
                     //then render dash
-                    userCollection.find({ email: user.email }, 'fname lname', function (err, result) {
+                    userCollection.find({ email: user.email }, function (err, result) {
                         if (result[0].fname) fname = result[0].fname
-                        if (result[0].lname) lname = result[0].lname
+                        if (result[1].lname) lname = result[1].lname
                         //save query result (array) to session.user
                         req.session.user = result;
                         //logged in check
