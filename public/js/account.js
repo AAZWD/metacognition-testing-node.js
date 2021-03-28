@@ -65,7 +65,6 @@ window.onload = function () {
       inputs[2].style.borderColor = 'black';
       inputs[3].style.borderColor = 'black';
       inputs[4].style.borderColor = 'black';
-      form.classList.add('was-validated');
       return true;
     }
   }

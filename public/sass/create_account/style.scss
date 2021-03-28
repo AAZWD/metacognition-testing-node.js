@@ -48,6 +48,9 @@ body {
 h4.modal-title{
     color: $text-col-3
 }
+.email-warning{
+    display: none;
+}
 form{
     width: 80%;
 }

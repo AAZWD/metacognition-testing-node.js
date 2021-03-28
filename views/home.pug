@@ -36,13 +36,15 @@ body.bg-image
                         | &times;
                 //modal form
                 div.modal-body.d-flex.justify-content-center
-                    form.needs-validation(action='/dashboard' method='post' enctype="application/x-www-form-urlencoded" novalidate='')
+                    form.needs-validation(action='/user/dashboard' method='post' enctype="application/x-www-form-urlencoded" novalidate='')
                         .form-group
-                            label(for='username') Username:
-                            input#uname.form-control(type='text' placeholder='Enter username' name='username' required='')
+                            label(for='email') Email:
+                            br
+                            input#uname(type='email' placeholder='Enter email' name='email' required='')
                         .form-group
-                            label(for='password') Password:
-                            input#pwd.form-control(type='password' placeholder='Enter password' name='password' required='')
+                            label(for='pass') Password:
+                            br
+                            input#pwd(type='password' placeholder='Enter password' name='pass' required='')
                         br
                         button.btn.btn-primary(type='submit') Submit
 

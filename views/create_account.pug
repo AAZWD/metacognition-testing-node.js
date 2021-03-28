@@ -30,22 +30,23 @@ body.bg-image
                 div.modal-header
                     h4.modal-title.mx-auto
                         | Create an Account
+                    h3.email-warning.modal-title
                 //modal form
                 div.modal-body.d-flex.justify-content-center
                     form.needs-validation(action='/user/dashboard' method='post' enctype="application/x-www-form-urlencoded" novalidate='')
                         .form-group
-                            label(for='fName') First Name:
-                            input#fName.form-control(type='text' placeholder='' name='fName' required='')
-                            label(for='lName') Last Name:
-                            input#lName.form-control(type='text' placeholder='' name='lName' required='')
+                            label(for='fname') First Name:
+                            input#fName.form-control(type='text' placeholder='' name='fname' required='')
+                            label(for='lname') Last Name:
+                            input#lName.form-control(type='text' placeholder='' name='lname' required='')
                         br
                         br
                         .form-group.short
                             label(for='email') Email Address :
                             input#uname.form-control(type='email' placeholder='Enter email address' name='email' required='')
                         .form-group.short
-                            label(for='password') Password:
-                            input#pwd.form-control(type='password' placeholder='Enter password' name='password' required='')
+                            label(for='pass') Password:
+                            input#pwd.form-control(type='password' placeholder='Enter password' name='pass' required='')
                         .form-group.short
                             label(for='confirm') Password:
                             input#conf.form-control(type='password' placeholder='Confirm password' name='confirm' required='')

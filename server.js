@@ -1,19 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
-MongoClient.connect(url, function (err, client) {
-    const db = client.db('cma');
-    const collection = db.collection('user/patient/test');
-    console.log("Connected successfully to server");
-});
-
-
-/*additional middleware
-    session traacking for different users
-*/
-
-//export own modules later if it gets too messy
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -21,14 +7,40 @@ const port = 3000;
 
 //access static content
 app.use(express.static('public'));
-
 //set pug template
 app.set('view engine', 'pug');
+
+
+//connect to mongodb with mongoose 
+const mongoose = require('mongoose');
+//get schemas
+const userCollection = require('./uSchema');
+const connectionString = "mongodb+srv://comit:comit@cluster0.ulggk.mongodb.net/cma?retryWrites=true&w=majority";
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connection.on("error", function (error) {
+    console.log(error);
+});
+
+mongoose.connection.on("open", function () {
+    console.log("Connected to MongoDB database.");
+});
+
+
+
+/*additional middleware
+    session tracking for different users
+*/
+
+
 
 //------------------------------------------------------
 ////////////ERROR HANDLING/////////
 //accessing anything w/o login/signup
 
+/*function handleError(err){
+
+}|*/
 
 ////////////GET//////////////////
 //basic home page
@@ -38,19 +50,29 @@ app.get('/', (req, res) => {
 
 //create account page
 app.get('/create_account', (req, res) => {
-    res.render('create_account');
+    res.render('create_account')
 });
 
+app.get('/create_account/:id', (req, res) => {
+    if (req.params.id == 1) {
+        res.render('create_account',
+            {
+                warning: "An account with this email already exists"
+            }
+        );
+    } else {
+
+    }
+});
 //dashboard
 app.get('/user/dashboard', (req, res) => {
-    //check user logged in
+    //check user logged in by checking that they came in from any url except home?
     ////
     ///
 
     //get date
     let date = new Date;
     date = date.toDateString();
-
     //Get user data from th database
     res.render('user/dashboard',
         {
@@ -135,32 +157,80 @@ app.get('/user/edit_profile', (req, res) => {
         }
     );
 });
+
+
 /////////POST//////////////////
 //after logging in and creating an account
 app.post('/user/dashboard', urlencodedParser, (req, res) => {
-    //check user exists in database, then
-
+    //get req body for form content
     const user = req.body;
 
     //get date
     let date = new Date;
     date = date.toDateString();
 
-    //some of these will be subtituted with SQL queries based on the current session
-    res.render('user/dashboard',
-        {
-            email: user.email,
-            password: user.password,
-            first_name: user.fName,
-            last_name: user.lName,
-            date: date,
-            page: 'Dashboard'
-        }
-
-    );
+    //check if post request is coming from login or create_account page
+    if (req.header('Referer') == 'http://localhost:3000/create_account') {
+        //create account
+        //exists() returns a pending promise which is fulfilled to either return true or false
+        userCollection.exists({ email: user.email })
+            .then(function (exists) {
+                //user email in document
+                if (exists) {
+                    console.log('the email exists:', exists);
+                    res.redirect('/create_account');
+                    //user email not in document
+                } else {
+                    //create a document in userCollection
+                    userCollection.create(
+                        {
+                            fname: user.fname,
+                            lname: user.lname,
+                            email: user.email,
+                            pass: user.pass
+                        });
+                    //load dashboard
+                    res.render('user/dashboard',
+                        {
+                            fname: user.fname,
+                            lname: user.lname,
+                            date: date,
+                            page: 'Dashboard'
+                        }
+                    );
+                }
+            });
+    } else {
+        userCollection.exists({ email: user.email, pass: user.pass })
+            .then(function (exists) {
+                //user email + pass in document
+                if (exists) {
+                    console.log('the email + pass combo exists:', exists);
+                    //load dashboard w user info
+                    let fname = 'New'
+                    let lname = 'User'
+                    //query fname and last naem from collection w/ enteed email
+                    userCollection.find({ email: user.email }, 'fname lname', function (err, result) {
+                        if(result[0].fname) fname = result[0].fname
+                        if(result[0].lname) lname = result[0].lname
+                        res.render('user/dashboard',
+                            {
+                                fname: fname,
+                                lname: lname,
+                                date: date,
+                                page: 'Dashboard'
+                            }
+                        );
+                    });
+                    //user email + pass combo not in document
+                } else {
+                    res.redirect('/');
+                }
+            });
+    }
 });
 
-//Editing user profile account
+//Editing user account
 app.post('/user/account', urlencodedParser, (req, res) => {
     //check user exists in database, then
     ////
