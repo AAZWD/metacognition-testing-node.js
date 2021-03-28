@@ -34,7 +34,7 @@ app.use(session({ secret: 'super secret', resave: false, saveUninitialized: true
 
 //------------------------------------------------------
 
-///Sessions Middleware////////
+///Sessions Middleware////////////
 
 
 ////////////GET//////////////////
