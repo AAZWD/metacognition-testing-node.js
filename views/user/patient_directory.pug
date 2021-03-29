@@ -1,5 +1,6 @@
 extends ./layout.pug
 block content
+    - var data = data;
     #p_directory.conatiner
         .row
             .col-8
@@ -38,19 +39,8 @@ block content
                             th Intake User ID Number
                     tbody
                         tr
-                            td ID Number
-                            td First Name
-                            td Last Name
-                            td Date of Birth 
-                            td Sex 
-                            td Gender 
-                            td Age 
-                            td Education
-                            td ESL 
-                            td LV 
-                            td Diagnosis 
-                            td Medication
-                            td Notes
+                            each val in data[0]
+                                td= val
                         tr
                             td test data
                              //will contain the test/questionnaire results and notes from patient profile
