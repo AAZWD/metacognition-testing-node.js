@@ -39,8 +39,9 @@ block content
                             th Intake User ID Number
                     tbody
                         tr
-                            each val in data[0]
-                                td= val
+                            each val in data
+                                td= val._id
+                                td= val.fname
                         tr
                             td test data
                              //will contain the test/questionnaire results and notes from patient profile
