@@ -15,6 +15,7 @@ app.set('view engine', 'pug');
 const mongoose = require('mongoose');
 //get schemas
 const userCollection = require('./uSchema');
+const patientCollection = require('./pSchema');
 const connectionString = "mongodb+srv://comit:comit@cluster0.ulggk.mongodb.net/cma?retryWrites=true&w=majority";
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -26,15 +27,9 @@ mongoose.connection.on("open", function () {
     console.log("Connected to MongoDB database.");
 });
 
-//sessions
+//sessions middleware
 const session = require('express-session');
 app.use(session({ secret: 'super secret', resave: false, saveUninitialized: true }));
-
-
-
-//------------------------------------------------------
-
-///Sessions Middleware////////////
 
 
 ////////////GET//////////////////
@@ -70,29 +65,29 @@ app.get('/error', (req, res) => {
 app.get('/user/dashboard', (req, res) => {
     //logged in check
     if (req.session.user) {
+        let uData = req.session.user;
         //load nav w user info        
         let date = new Date;
         date = date.toDateString();
         let fname = 'New'
         let lname = 'User'
         //query fname and last name from collection w/ email
-        userCollection.find({ email: user.email }, function (err, result) {
-            if (result[0].fname) fname = result[0].fname
-            if (result[1].lname) lname = result[1].lname
-            //Get user data from the database
-            res.render('user/dashboard',
-                {
-                    fname: fname,
-                    lname: lname,
-                    date: date,
-                    page: 'Dashboard'
-                }
-            );
-        });
+        if (uData[0].fname) fname = uData[0].fname
+        if (uData[0].lname) lname = uData[0].lname
+        //get patient info from db
+        //get test info from db
+        //pass both to page
+        res.render('user/dashboard',
+            {
+                fname: fname,
+                lname: lname,
+                date: date,
+                page: 'Dashboard'
+            }
+        );
     } else {
         res.redirect('/error');
     }
-
 });
 
 //user account page
@@ -102,22 +97,26 @@ app.get('/user/account', (req, res) => {
         //load nav w user info        
         let date = new Date;
         date = date.toDateString();
+        //placeholders
         let fname = 'New'
         let lname = 'User'
-        //query fname and last name from collection w/ email
-        userCollection.find({ email: user.email }, function (err, result) {
+        //get user info from db
+        userCollection.find({ email: uData[0].email }, function (err, result) {
+            console.log(result)
+            //update names if available
             if (result[0].fname) fname = result[0].fname
-            if (result[1].lname) lname = result[1].lname
-            //Get user data from the database
+            if (result[0].lname) lname = result[0].lname
             res.render('user/account',
                 {
                     fname: fname,
                     lname: lname,
                     date: date,
-                    page: 'User Account'
+                    page: 'User Account',
+                    uData: result
                 }
             );
         });
+
     } else {
         res.redirect('/error');
     }
@@ -127,14 +126,24 @@ app.get('/user/account', (req, res) => {
 app.get('/user/register', (req, res) => {
     //logged in check
     if (req.session.user) {
-        //get date
+        let uData = req.session.user;
+        //load nav w user info        
         let date = new Date;
         date = date.toDateString();
-        //Get user data from th database
+        let fname = 'New'
+        let lname = 'User'
+        //query fname and last name from collection w/ email
+        if (uData[0].fname) fname = uData[0].fname
+        if (uData[0].lname) lname = uData[0].lname
+        //get patient info from db
+        //get test info from db
+        //pass both to page
         res.render('user/register',
             {
+                fname: fname,
+                lname: lname,
                 date: date,
-                page: 'Register Patients'
+                page: 'Register Patient'
             }
         );
     } else {
@@ -146,12 +155,22 @@ app.get('/user/register', (req, res) => {
 app.get('/user/patient_directory', (req, res) => {
     //logged in check
     if (req.session.user) {
-        //get date
+        let uData = req.session.user;
+        //load nav w user info        
         let date = new Date;
         date = date.toDateString();
-        //Get user data from th database
+        let fname = 'New'
+        let lname = 'User'
+        //query fname and last name from collection w/ email
+        if (uData[0].fname) fname = uData[0].fname
+        if (uData[0].lname) lname = uData[0].lname
+        //get patient info from db
+        //get test info from db
+        //pass both to page
         res.render('user/patient_directory',
             {
+                fname: fname,
+                lname: lname,
                 date: date,
                 page: 'Patient Directory'
             }
@@ -165,12 +184,22 @@ app.get('/user/patient_directory', (req, res) => {
 app.get('/user/edit_profile', (req, res) => {
     //logged in check
     if (req.session.user) {
-        //get date
+        let uData = req.session.user;
+        //load nav w user info        
         let date = new Date;
         date = date.toDateString();
-        //Get user data from th database
+        let fname = 'New'
+        let lname = 'User'
+        //query fname and last name from collection w/ email
+        if (uData[0].fname) fname = uData[0].fname
+        if (uData[0].lname) lname = uData[0].lname
+        //get patient info from db
+        //get test info from db
+        //pass both to page
         res.render('user/edit_profile',
             {
+                fname: fname,
+                lname: lname,
                 date: date,
                 page: 'Edit Profiles'
             }
@@ -236,7 +265,7 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
                     //then render dash
                     userCollection.find({ email: user.email }, function (err, result) {
                         if (result[0].fname) fname = result[0].fname
-                        if (result[1].lname) lname = result[1].lname
+                        if (result[0].lname) lname = result[0].lname
                         //save query result (array) to session.user
                         req.session.user = result;
                         //logged in check
@@ -256,6 +285,7 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
                     });
                     //user email + pass combo not in document
                 } else {
+                    console.log(user.email);
                     res.redirect('/');
                 }
             });
@@ -264,28 +294,32 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
 
 //Editing user account
 app.post('/user/account', urlencodedParser, (req, res) => {
-    //check user exists in database, then
-    ////
-    ////
-
+    //add this to db
     const user = req.body;
 
     //get date
     let date = new Date;
     date = date.toDateString();
 
-    //some of these will be subtituted with SQL queries based on the current session
-    res.render('user/account',
-        {
-            email: user.email,
-            password: user.password,
-            first_name: user.fName,
-            last_name: user.lName,
-            date: date,
-            page: 'User Account'
-        }
+    //get info for user in session
+    let uData = req.session.user;
 
-    );
+    //get upated db info
+    userCollection.find({ _id: uData[0]._id }, function (err, result) {
+        console.log(result)
+        //update names if available
+        if (result[0].fname) fname = result[0].fname
+        if (result[0].lname) lname = result[0].lname
+        res.render('user/account',
+            {
+                fname: fname,
+                lname: lname,
+                date: date,
+                page: 'User Account',
+                data: result
+            }
+        );
+    });
 });
 
 //Registering a patient
