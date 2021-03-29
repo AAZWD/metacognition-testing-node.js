@@ -4,3 +4,4 @@
     account creation
 3. add link to sign up page in modal
 4.change name verification in sign up
+5. error handing for db functions

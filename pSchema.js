@@ -13,22 +13,18 @@ const pSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Need user ID']
   },
-  age: {
-    type: Number,
-    required: [true, 'Need age']
-  },
   dob: {
     type: Date,
     required: [true, 'Need date of birth']
   },
   sex: {
     type: String,
-    enum: ['female', 'male', 'other'],
+    enum: ['Female', 'Male', 'Other'],
     required: [true, 'Need sex']
   },
   gen: {
     type: String,
-    enum: ['woman', 'man', 'other'],
+    enum: ['Woman', 'Man', 'Other'],
     required: [true, 'Need gender']
   },
   edu: {
@@ -45,7 +41,7 @@ const pSchema = new mongoose.Schema({
   },
   diag: {
     type: String,
-    enum: ['sch', 'sche', 'pnos', 'dd', 'md', 'mdwp'],
+    enum: ['Schizophrenia', 'Schizoaffective', 'Psychosis Not Otherwise Specified', 'Delusional Disorder', 'Mood Disorder', 'Mood Disorder with Psychosis'],
     required: [true, 'Need diagnosis']
   },
   meds: {

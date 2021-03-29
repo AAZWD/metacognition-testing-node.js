@@ -9,14 +9,14 @@ const uSchema = new mongoose.Schema({
     },
     instn: {
         type: String,
-        enum: ['ffu', 'gg', 'uor']
+        enum: ['Fimon Fraser University', 'GcGill University', 'University of Roronto']
     },
     empID: {
         type: Number
     },
     posn: {
         type: String,
-        enum: ['doc', 'nurse', 'student']
+        enum: ['Doctor', 'Nurse', 'Student']
     },
     phn: {
         type: String

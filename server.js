@@ -100,6 +100,8 @@ app.get('/user/account', (req, res) => {
         //placeholders
         let fname = 'New'
         let lname = 'User'
+        //get email from session
+        let uData = req.session.user
         //get user info from db
         userCollection.find({ email: uData[0].email }, function (err, result) {
             console.log(result)
@@ -112,7 +114,7 @@ app.get('/user/account', (req, res) => {
                     lname: lname,
                     date: date,
                     page: 'User Account',
-                    uData: result
+                    data: result
                 }
             );
         });
@@ -120,6 +122,7 @@ app.get('/user/account', (req, res) => {
     } else {
         res.redirect('/error');
     }
+    console.log('rendered');
 });
 
 //Register Patients
@@ -132,12 +135,9 @@ app.get('/user/register', (req, res) => {
         date = date.toDateString();
         let fname = 'New'
         let lname = 'User'
-        //query fname and last name from collection w/ email
+        //query fname and last name from session
         if (uData[0].fname) fname = uData[0].fname
         if (uData[0].lname) lname = uData[0].lname
-        //get patient info from db
-        //get test info from db
-        //pass both to page
         res.render('user/register',
             {
                 fname: fname,
@@ -239,16 +239,29 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
                             lname: user.lname,
                             email: user.email,
                             pass: user.pass
+                        }, function (err, result) {
+                            userCollection.find({ email: user.email }, function (err, result) {
+                                console.log(result)
+                                let fname = result[0].fname
+                                let lname = result[0].lname
+                                //save query result (array) to session.user
+                                req.session.user = result;
+                                //logged in check
+                                if (req.session.user) {
+                                    console.log('signed up and logged in');
+                                } else {
+                                    console.log('not authorized');
+                                }
+                                res.render('user/dashboard',
+                                    {
+                                        fname: fname,
+                                        lname: lname,
+                                        date: date,
+                                        page: 'Dashboard'
+                                    }
+                                );
+                            });
                         });
-                    //load dashboard
-                    res.render('user/dashboard',
-                        {
-                            fname: user.fname,
-                            lname: user.lname,
-                            date: date,
-                            page: 'Dashboard'
-                        }
-                    );
                 }
             });
     } else {
@@ -294,55 +307,60 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
 
 //Editing user account
 app.post('/user/account', urlencodedParser, (req, res) => {
-    //add this to db
-    const user = req.body;
-
-    //get date
-    let date = new Date;
-    date = date.toDateString();
-
-    //get info for user in session
-    let uData = req.session.user;
-
-    //get upated db info
-    userCollection.find({ _id: uData[0]._id }, function (err, result) {
-        console.log(result)
-        //update names if available
-        if (result[0].fname) fname = result[0].fname
-        if (result[0].lname) lname = result[0].lname
-        res.render('user/account',
-            {
-                fname: fname,
-                lname: lname,
-                date: date,
-                page: 'User Account',
-                data: result
-            }
-        );
+    //add user info to db
+    const user = req.body
+    const oldData = req.session.user //array
+    console.log('post sent:', req.body)
+    //update db first
+    userCollection.updateOne({ email: oldData[0].email }, user, function (err, result) {
+        //get date
+        let date = new Date;
+        date = date.toDateString();
+        //get upated db info
+        userCollection.find({ email: user.email }, function (err, result) {
+            console.log(result)
+            //update names
+            fname = result[0].fname
+            lname = result[0].lname
+            //update session
+            req.session.user = result;
+            res.render('user/account',
+                {
+                    fname: fname,
+                    lname: lname,
+                    date: date,
+                    page: 'User Account',
+                    data: result
+                }
+            );
+        });
     });
 });
 
 //Registering a patient
 app.post('/user/register', urlencodedParser, (req, res) => {
-    //check user exists in database, then
-    ////
-    ////
-
-    const user = req.body;
+    const patient = req.body
+    console.log('OG post sent:', req.body)
+    //get user id
+    let uData = req.session.user
+    //add id to patient obj
+    patient.uID = uData[0]._id
+    console.log('updated patient:', patient)
 
     //get date
     let date = new Date;
     date = date.toDateString();
 
-    //some of these will be subtituted with SQL queries based on the current session
+    patientCollection.create(patient, function (err, result) {
+        if (err) return console.log('error');
+        else return console.log('works??');
+    });
     res.render('user/register',
         {
-            email: user.email,
-            password: user.password,
-            first_name: user.fName,
-            last_name: user.lName,
+            fname: uData[0].fname,
+            lname: uData[0].lname,
             date: date,
-            page: 'Register New Patient'
+            page: 'Register Patient'
         }
     );
 });
