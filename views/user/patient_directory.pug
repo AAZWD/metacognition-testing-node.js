@@ -10,11 +10,11 @@ block content
         .row.mb-4
             .col-2
                 label(for='pname') Search by Patient Name
-                input.form-control(type='text' placeholder='Name' name='pname')
+                input#nameSearch.form-control(type='text' placeholder='Name' name='pname')
         .row.mb-4
             .col-2
                 label(for='pid') Search by Patient ID
-                input.form-control(type='text' placeholder='ID' name='pid')
+                input#idSearch.form-control(type='text' placeholder='ID' name='pid')
         br
         
         .row.mb-4
@@ -28,20 +28,64 @@ block content
                             th Last Name
                             th Date of Birth 
                             th Sex 
-                            th Gender 
-                            th Age 
-                            th Education
-                            th ESL 
-                            th LV 
-                            th Diagnosis 
-                            th Medication
+                            th Gender  
+                            th Highest Level of Education
+                            th E.S.L
+                            th Language Validity 
+                            th Axis I Diagnosis 
+                            th Medicated (Antipsychotic)
+                            th Clinician ID Number
                             th Notes
-                            th Intake User ID Number
                     tbody
-                        tr
-                            each val in data
-                                td= val._id
-                                td= val.fname
+                        each val in data
+                            tr
+                                -var id = val._id.toString()
+                                td.id
+                                    span= id.slice(0,12) 
+                                    br
+                                    span= id.slice(13)
+                                td.name= val.fname
+                                td.name= val.lname
+                                - var date = new Date(val.dob).toLocaleString("en-US", {timeZone: "UTC"}).toString()
+                                - var comma = date.indexOf(',')
+                                td= date.slice(0,comma)
+                                td= val.sex 
+                                td= val.gen
+                                if val.edu == 18
+                                    td= 'Graduate Studies'
+                                if val.edu == 16 
+                                    td= 'Undergraduate Studies'
+                                if val.edu == 14 
+                                    td= 'Associates Degree/Diploma'
+                                if val.edu == 12 
+                                    td= 'High School'
+                                if val.edu == 11 
+                                    td= 'Grade 11'
+                                if val.edu == 10 
+                                    td= 'Grade 10'
+                                if val.edu == 9 
+                                    td= 'Grade 9'
+                                if val.edu == 8
+                                    td= 'Grade 8'
+                                if val.edu == 7 
+                                    td= 'Under Grade 8'
+                                if val.esl == true
+                                    td= 'Yes'
+                                if val.esl == false
+                                    td= 'No'
+                                if val.langv == true
+                                    td= 'Yes'
+                                if val.langv == false
+                                    td= 'No'
+                                td= val.diag
+                                td= val.meds
+                                 -var id = val.uID.toString()
+                                td
+                                    span= id.slice(0,12) 
+                                    br
+                                    span= id.slice(13)
+                                td= val.notes
+
                         tr
                             td test data
                              //will contain the test/questionnaire results and notes from patient profile

@@ -11452,4 +11452,8 @@ fieldset:disabled .btn {
 #user_info {
   margin-bottom: 4%;
 }
+
+.hide {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */
