@@ -9,11 +9,11 @@ block content
         br
         .row.mb-4
             .col-2
-                label(for='pname') Search by Patient Name
+                label(for='pname') Search by Last Name
                 input#nameSearch.form-control(type='text' placeholder='Name' name='pname')
         .row.mb-4
             .col-2
-                label(for='pid') Search by Patient ID
+                label(for='pid') Search by ID Number
                 input#idSearch.form-control(type='text' placeholder='ID' name='pid')
         br
         
@@ -38,13 +38,13 @@ block content
                             th Notes
                     tbody
                         each val in data
-                            tr
+                            tr.info
                                 -var id = val._id.toString()
                                 td.id
                                     span= id.slice(0,12) 
                                     br
                                     span= id.slice(13)
-                                td.name= val.fname
+                                td= val.fname
                                 td.name= val.lname
                                 - var date = new Date(val.dob).toLocaleString("en-US", {timeZone: "UTC"}).toString()
                                 - var comma = date.indexOf(',')
@@ -78,8 +78,9 @@ block content
                                 if val.langv == false
                                     td= 'No'
                                 td= val.diag
-                                td= val.meds
-                                 -var id = val.uID.toString()
+                                if val.meds == true
+                                    td= 'Yes'
+                                if val.meds == false
                                 td
                                     span= id.slice(0,12) 
                                     br
