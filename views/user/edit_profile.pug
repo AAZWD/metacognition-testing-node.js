@@ -45,7 +45,7 @@ block content
                                     //will display test data in sub tr
                                 td 
                                     button.uPat.formbtn.btn(type='button') Update
-                                    form.deleteForm(action='/user/edit_profile' method='get' enctype="application/x-www-form-urlencoded")
+                                    form.deleteForm(action='/user/edit_profile' method='post' enctype="application/x-www-form-urlencoded")
                                         button.deleteBtn.formbtn.btn(type='submit' value= val._id) Delete
                                         //confirm before sending get request
                             tr.data test data goes here

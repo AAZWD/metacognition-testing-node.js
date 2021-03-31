@@ -372,7 +372,7 @@ app.post('/user/register', urlencodedParser, (req, res) => {
     );
 });
 
-//Searching Directory
+//Searching Directory     DONT NEED THIS??
 app.post('/user/patient_directory', urlencodedParser, (req, res) => {
     //check user exists in database, then
     ////
@@ -399,27 +399,32 @@ app.post('/user/patient_directory', urlencodedParser, (req, res) => {
 
 //Searching to delete
 app.post('/user/edit_profile', urlencodedParser, (req, res) => {
-    //check user exists in database, then
-    ////
-    ////
+    console.log('Post Request Headers:', req.headers)
+        let uData = req.session.user;
+        //load nav w user info        
+        let date = new Date;
+        date = date.toDateString();
+        let fname = 'New'
+        let lname = 'User'
+        if (uData[0].fname) fname = uData[0].fname
+        if (uData[0].lname) lname = uData[0].lname
+        console.log('uData', uData);
+        //get patient data
+        patientCollection.find({uID: uData[0]._id}, function (err, pResult) {
+            console.log('find patients result', pResult)
 
-    const user = req.body;
-
-    //get date
-    let date = new Date;
-    date = date.toDateString();
-
-    //some of these will be subtituted with SQL queries based on the current session
-    res.render('user/edit_profile',
-        {
-            email: user.email,
-            password: user.password,
-            first_name: user.fName,
-            last_name: user.lName,
-            date: date,
-            page: 'Register New Patient'
-        }
-    );
+            //get test data with patient _id
+            res.render('user/edit_profile',
+                {
+                    fname: fname,
+                    lname: lname,
+                    date: date,
+                    page: 'Edit Profiles',
+                    pData: pResult
+                    //tData: tResult
+                }
+            );
+        });
 });
 
 /*
