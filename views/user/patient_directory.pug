@@ -1,8 +1,11 @@
 extends ./layout.pug
 block content
+    //toggle script
+    script(type='text/javascript' src='../user/js/toggle.js')
+
     - var pData = data;
     //var tData = tData
-
+    
     #p_directory.conatiner
         .row
             .col-8
@@ -38,7 +41,7 @@ block content
                             th Medicated (Antipsychotic)
                             th Clinician ID Number
                     tbody
-                        each val in pData
+                        each val, index in pData
                             tr.info
                                 -var id = val._id.toString()
                                 td.id
@@ -88,7 +91,9 @@ block content
                                     br
                                     span= val.uID.slice(13)
                                 td 
-                                    button.formbtn.btn.mb-2(type='button') Test Data 
+                                    button.formbtn.btn.mb-2(type='button' value= index onclick='toggle(this.value)') Test Data 
                                     //will display test data in sub tr
+                            tr(class= 'hide num' + index)
+                                td(colspan='13') gggggggg
                             
                                     

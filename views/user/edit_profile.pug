@@ -2,7 +2,8 @@ extends ./layout.pug
 
 block content
     - var pData = pData;
-
+    //toggle script
+    script(type='text/javascript' src='../user/js/toggle.js')
     #p_directory.conatiner
         .row
             .col-8
@@ -45,9 +46,10 @@ block content
                                     form(class= 'deleteForm'+ index action='/user/edit_profile' method='post' enctype="application/x-www-form-urlencoded")
                                         input(class= 'dPat'+ index type="hidden" name="deletedPatient" value= val._id)
                                         button.formbtn.btn(type='submit' onclick='x='+index value= index) Delete
-                            tr(class= 'uForm num' + index)
+                            tr(class= 'hide num' + index)
                                 td(colspan='6')
                                     form(action='/user/edit_profile' method='post' enctype="application/x-www-form-urlencoded")
+                                        input(type="hidden" name="updatedPatient" value= val._id)
                                         .row.mb-1
                                             .col-3
                                                 label(for='fname') First Name:
@@ -140,6 +142,4 @@ block content
                                         .row.mb-1
                                             .col-2.mt-4
                                                 button.formbtn.btn.mb-2(type='submit') Submit
-                                                                    
-                                                            
                                                         

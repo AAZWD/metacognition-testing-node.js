@@ -373,7 +373,7 @@ app.post('/user/register', urlencodedParser, (req, res) => {
     );
 });
 
-//Searching Directory     DONT NEED THIS??
+////from end of test
 app.post('/user/patient_directory', urlencodedParser, (req, res) => {
     //check user exists in database, then
     ////
@@ -398,7 +398,7 @@ app.post('/user/patient_directory', urlencodedParser, (req, res) => {
     );
 });
 
-//Searching to delete
+//delete/update patient
 app.post('/user/edit_profile', urlencodedParser, (req, res) => {
     let uData = req.session.user;
     //load nav w user info        
@@ -417,9 +417,20 @@ app.post('/user/edit_profile', urlencodedParser, (req, res) => {
             if (!err) console.log(delID , 'deleted')
           });
           /////////////DELETE THEM FROM TEST DB USING DELETEMANY
+          /////
+          /////
+          ////
+          ////
+          ////
+          ////
     //UPDATE POST
         } else {
-        //update
+            let upID = req.body.updatedPatient
+            let patient = req.body
+            console.log('updated patients id', upID, req.body)
+            patientCollection.updateOne({ _id: upID }, patient, function (err, result) {
+                if (!err) console.log(upID , 'updated')
+          });
     }
     //then find and render
     //get new patient data

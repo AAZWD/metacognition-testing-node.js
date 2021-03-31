@@ -1,4 +1,5 @@
 window.onload = function () {
+    
     //filter by name
     let input = document.getElementById('nameSearch');
     let tRow = document.querySelectorAll('tbody .info');
@@ -38,12 +39,5 @@ window.onload = function () {
 
     };
 
-    let allForm = document.querySelectorAll('.uForm');
-    allForm.forEach(element => {
-        element.classList.add('hide');
-    });
-    function toggle(){
-        
-    }
 
 };
