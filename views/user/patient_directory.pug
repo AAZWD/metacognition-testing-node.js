@@ -35,7 +35,6 @@ block content
                             th Axis I Diagnosis 
                             th Medicated (Antipsychotic)
                             th Clinician ID Number
-                            th Notes
                     tbody
                         each val in data
                             tr.info
@@ -85,8 +84,6 @@ block content
                                     span= id.slice(0,12) 
                                     br
                                     span= id.slice(13)
-                                td= val.notes
-
                         tr
                             td test data
                              //will contain the test/questionnaire results and notes from patient profile

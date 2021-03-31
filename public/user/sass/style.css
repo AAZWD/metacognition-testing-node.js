@@ -11456,4 +11456,19 @@ fieldset:disabled .btn {
 .hide {
   display: none;
 }
+
+.ebtn:first-of-type {
+  margin-right: 15px;
+}
+
+.formbtn:hover {
+  background-color: #fafafa;
+  border: 1px solid;
+}
+
+.formbtn, .formbtn:active:focus,
+.formbtn:focus {
+  background-color: #ebebeb;
+  border: 1px solid;
+}
 /*# sourceMappingURL=style.css.map */

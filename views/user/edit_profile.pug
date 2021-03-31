@@ -1,6 +1,9 @@
 extends ./layout.pug
 
 block content
+    - var pData = pData;
+    //- var tData = tData
+
     #p_directory.conatiner
         .row
             .col-8
@@ -10,17 +13,16 @@ block content
         h3#sub_title Search For Patient Profiles to Update or Delete
         .row.mb-4
             .col-2
-                label(for='pname') Search by Patient Name
-                input.form-control(type='text' placeholder='Name' name='pname')
+                label(for='pname') Search by Last Name
+                input#nameSearch.form-control(type='text' placeholder='Name' name='pname')
         .row.mb-4
             .col-2
-                label(for='pid') Search by Patient ID
-                input.form-control(type='text' placeholder='ID' name='pid')
+                label(for='pid') Search by ID Number
+                input#idSearch.form-control(type='text' placeholder='ID' name='pid')
         br   
             
         .row.mb-4
-            //table headers, rest generated via noSQL
-            .col
+            .col.col-9
                 table.table.table-hover
                     thead
                         //align="center"
@@ -28,32 +30,24 @@ block content
                             th ID Number
                             th First Name
                             th Last Name
-                            th Date of Birth 
-                            th Sex 
-                            th Gender 
-                            th Age 
-                            th Education
-                            th ESL 
-                            th LV 
-                            th Diagnosis 
-                            th Medication
-                            th Update/Delete
+                            th Notes
+                            th 
+                            th 
                     tbody
-                        tr
-                            td ID Number
-                            td First Name
-                            td Last Name
-                            td Date of Birth 
-                            td Sex 
-                            td Gender 
-                            td Age 
-                            td Education
-                            td ESL 
-                            td LV 
-                            td Diagnosis 
-                            td Medication
-                            td 2 Buttons Update and Delete
-                //for each patient create a tr with one td in it
-                //will contain the test/questionnaire results and notes from patient profile
-                //delete will trigger an alert and then delete
-                //update will display the patient form with current details in input area
+                        each val in pData
+                            tr.info
+                                td.id= val._id.toString()
+                                td= val.fname
+                                td.name= val.lname
+                                td= val.notes
+                                td 
+                                    button.formbtn.btn.mb-2(type='button') Test Data 
+                                    //will display test data in sub tr
+                                td 
+                                    button.uPat.formbtn.btn(type='button') Update
+                                    form.deleteForm(action='/user/edit_profile' method='get' enctype="application/x-www-form-urlencoded")
+                                        button.deleteBtn.formbtn.btn(type='submit' value= val._id) Delete
+                                        //confirm before sending get request
+                            tr.data test data goes here
+                                
+                            

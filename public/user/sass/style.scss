@@ -126,3 +126,18 @@ $det2: rgb(241, 203, 96);
 .hide{
     display: none;
 }
+
+//edit patient profile
+.ebtn:first-of-type{
+    margin-right: 15px;
+}
+.formbtn:hover{
+    background-color: $sec-bg;
+    border: 1px solid;
+}
+
+.formbtn, .formbtn:active:focus, 
+.formbtn:focus{
+    background-color: $gen-bg;
+    border: 1px solid;
+}

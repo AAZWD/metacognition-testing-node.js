@@ -192,20 +192,25 @@ app.get('/user/edit_profile', (req, res) => {
         date = date.toDateString();
         let fname = 'New'
         let lname = 'User'
-
         if (uData[0].fname) fname = uData[0].fname
         if (uData[0].lname) lname = uData[0].lname
-        //get patient info from db
-        //get test info from db
-        //pass both to page
-        res.render('user/edit_profile',
-            {
-                fname: fname,
-                lname: lname,
-                date: date,
-                page: 'Edit Profiles'
-            }
-        );
+        console.log('uData', uData);
+        //get patient data
+        patientCollection.find({uID: uData[0]._id}, function (err, pResult) {
+            console.log('find patients result', pResult)
+
+            //get test data with patient _id
+            res.render('user/edit_profile',
+                {
+                    fname: fname,
+                    lname: lname,
+                    date: date,
+                    page: 'Edit Profiles',
+                    pData: pResult
+                    //tData: tResult
+                }
+            );
+        });
     } else {
         res.redirect('/error');
     }
