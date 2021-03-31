@@ -1,6 +1,8 @@
 extends ./layout.pug
 block content
-    - var data = data;
+    - var pData = data;
+    //var tData = tData
+
     #p_directory.conatiner
         .row
             .col-8
@@ -36,7 +38,7 @@ block content
                             th Medicated (Antipsychotic)
                             th Clinician ID Number
                     tbody
-                        each val in data
+                        each val in pData
                             tr.info
                                 -var id = val._id.toString()
                                 td.id
@@ -82,10 +84,11 @@ block content
                                 if val.meds == false
                                     td= 'No'
                                 td
-                                    span= id.slice(0,12) 
+                                    span= val.uID.slice(0,12) 
                                     br
-                                    span= id.slice(13)
+                                    span= val.uID.slice(13)
                                 td 
                                     button.formbtn.btn.mb-2(type='button') Test Data 
                                     //will display test data in sub tr
-                    
+                            
+                                    

@@ -129,6 +129,9 @@ $det2: rgb(241, 203, 96);
 .hide{
     display: none;
 }
+.testData{
+    display: none;
+}
 
 //edit patient profile
 .ubtn:first-of-type{
@@ -144,6 +147,6 @@ $det2: rgb(241, 203, 96);
     background-color: $gen-bg;
     border: 1px solid;
 }
-.notes{
+.left{
     text-align: left;
 }

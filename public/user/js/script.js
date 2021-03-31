@@ -38,15 +38,12 @@ window.onload = function () {
 
     };
 
-    ///delete patient confirmation
-    let form = document.querySelector('.deleteForm');
-    let del = document.querySelector('.dPat');
-    form.onsubmit = function(event) {
-        let pID = del.value;
-        if(confirm(`Delete Patient # ${pID} ?`))
-            return true
-        else
-            event.preventDefault();
+    let allForm = document.querySelectorAll('.uForm');
+    allForm.forEach(element => {
+        element.classList.add('hide');
+    });
+    function toggle(){
+        
     }
 
 };

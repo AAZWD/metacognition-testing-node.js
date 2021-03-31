@@ -31,6 +31,11 @@ const tSchema = new mongoose.Schema({
   MC_ans: {
     type: [Number],
     required: [true, 'Need metacog answers']
+  },
+  //completion status
+  complete: {
+    type: Boolean,
+    required: [true, 'Need completion status']
   }
 });
 module.exports = mongoose.model('testCollection', tSchema);

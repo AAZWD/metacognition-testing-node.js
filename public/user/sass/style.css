@@ -11461,6 +11461,10 @@ fieldset:disabled .btn {
   display: none;
 }
 
+.testData {
+  display: none;
+}
+
 .ubtn:first-of-type {
   margin-bottom: 15px;
 }
@@ -11476,7 +11480,7 @@ fieldset:disabled .btn {
   border: 1px solid;
 }
 
-.notes {
+.left {
   text-align: left;
 }
 /*# sourceMappingURL=style.css.map */

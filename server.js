@@ -361,7 +361,7 @@ app.post('/user/register', urlencodedParser, (req, res) => {
 
     patientCollection.create(patient, function (err, result) {
         if (err) return console.log('error');
-        else return console.log('works??');
+        else return console.log('works');
     });
     res.render('user/register',
         {

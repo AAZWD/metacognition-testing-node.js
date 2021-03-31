@@ -2,7 +2,6 @@ extends ./layout.pug
 
 block content
     - var pData = pData;
-    //- var tData = tData
 
     #p_directory.conatiner
         .row
@@ -34,18 +33,113 @@ block content
                             th 
                             th 
                     tbody
-                        each val in pData
+                        each val, index in pData
                             tr.info
                                 td.id= val._id.toString()
                                 td= val.fname
                                 td.name= val.lname
                                 td.notes= val.notes
                                 td 
-                                    button.uPat.ubtn.formbtn.btn(type='button') Update
+                                    button.uPat.ubtn.formbtn.btn(type='button' value= index onclick='toggle(this.value)') Update
                                 td 
-                                    form.deleteForm(action='/user/edit_profile' method='post' enctype="application/x-www-form-urlencoded")
-                                        input.dPat(type="hidden" name="deletedPatient" value= val._id)
-                                        button.formbtn.btn(type='submit') Delete
-                                        
-                                
-                            
+                                    form(class= 'deleteForm'+ index action='/user/edit_profile' method='post' enctype="application/x-www-form-urlencoded")
+                                        input(class= 'dPat'+ index type="hidden" name="deletedPatient" value= val._id)
+                                        button.formbtn.btn(type='submit' onclick='x='+index value= index) Delete
+                            tr(class= 'uForm num' + index)
+                                td(colspan='6')
+                                    form(action='/user/edit_profile' method='post' enctype="application/x-www-form-urlencoded")
+                                        .row.mb-1
+                                            .col-3
+                                                label(for='fname') First Name:
+                                                input.form-control(type='text' placeholder=val.fname name='fname' required)
+                                            .col-3
+                                                label(for='lname') Last Name:
+                                                input.form-control(type='text' placeholder=val.lname name='lname' required)
+                                            .col-3
+                                                label(for='dob') Date of Birth:
+                                                input.form-control(type='date' placeholder='' name='dob' required)
+                                        br
+                                        .row.mb-1
+                                            .col-3
+                                                label(for='sex') Sex:
+                                                select.form-control(name='sex' required)
+                                                    option(value="Female") Female
+                                                    option(value="Male") Male
+                                                    option(value="Other") Other
+                                            .col-3
+                                                label(for='gen') Gender:
+                                                select.form-control(name='gen' required)
+                                                    option(value="Woman") Woman
+                                                    option(value="Man") Man
+                                                    option(value="Other") Other
+                                        br
+                                        .row.mb-1
+                                            .col-4
+                                                label(for='edu') Highest Level of Education (total years):
+                                                select.form-control(name='edu' required)
+                                                    option(value="18") Graduate Studies(18+ years)
+                                                    option(value="16") Undergraduate Studies(16 years)
+                                                    option(value="14") Associates Degree/Diploma(14 years)
+                                                    option(value="12") High School(12 years)
+                                                    option(value="11") Grade 11
+                                                    option(value="10") Grade 10
+                                                    option(value="9") Grade 9
+                                                    option(value="8") Grade 8
+                                                    option(value="7") Under Grade 8
+                                        br
+                                        .row.mb-1
+                                            .col-3
+                                                | English As A Second Language
+                                                br
+                                                .form-check-inline
+                                                    label.form-check-label
+                                                        input.form-check-input(type='radio' value= 'true' name='esl' required) 
+                                                        | Yes
+                                                .form-check-inline
+                                                    label.form-check-label
+                                                        input.form-check-input(type='radio' value= 'false' name='esl' required) 
+                                                        | No
+                                            .col
+                                                | Language Validity
+                                                br
+                                                .form-check-inline
+                                                    label.form-check-label
+                                                        input.form-check-input(type='radio' value= 'true' name='langv' required) 
+                                                        | Yes
+                                                .form-check-inline
+                                                    label.form-check-label
+                                                        input.form-check-input(type='radio' value= 'false' name='langv' required) 
+                                                        | No
+                                        br
+                                        .row.mb-1
+                                            .col-3
+                                                label(for='diag') Axis I Diagnosis:
+                                                select.form-control(name='diag' required)
+                                                    option(value="Schizophrenia") Schizophrenia
+                                                    option(value="Schizoaffective") Schizoaffective
+                                                    option(value="Psychosis Not Otherwise Specified") Psychosis Not Otherwise Specified 
+                                                    option(value=" Delusional Disorder") Delusional Disorder 
+                                                    option(value="Mood Disorder") Mood Disorder
+                                                    option(value="Mood Disorder with Psychosis") Mood Disorder with Psychosis
+
+                                            .col-3
+                                                | Treated with Antipsychotic Medication
+                                                br
+                                                .form-check-inline
+                                                    label.form-check-label
+                                                        input.form-check-input(type='radio' value= 'true' name='meds' required) 
+                                                        | Yes
+                                                .form-check-inline
+                                                    label.form-check-label
+                                                        input.form-check-input(type='radio' value= 'false' name='meds' required) 
+                                                        | No
+                                            .col-4
+                                                .form-group
+                                                    label(for='notes') Additional Notes:
+                                                    textarea.form-control(rows='5' name='notes')
+                                        .row.mb-1
+                                            .col-2.mt-4
+                                                button.formbtn.btn.mb-2(type='submit') Submit
+                                                                    
+                                                            
+                                                        
