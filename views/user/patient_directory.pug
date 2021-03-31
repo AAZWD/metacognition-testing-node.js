@@ -19,7 +19,7 @@ block content
         
         .row.mb-4
             .col
-                table.table.table-hover
+                table.table.table-hover.pTable
                     thead
                         //align="center"
                         tr 
@@ -80,10 +80,12 @@ block content
                                 if val.meds == true
                                     td= 'Yes'
                                 if val.meds == false
+                                    td= 'No'
                                 td
                                     span= id.slice(0,12) 
                                     br
                                     span= id.slice(13)
-                        tr
-                            td test data
-                             //will contain the test/questionnaire results and notes from patient profile
+                                td 
+                                    button.formbtn.btn.mb-2(type='button') Test Data 
+                                    //will display test data in sub tr
+                    

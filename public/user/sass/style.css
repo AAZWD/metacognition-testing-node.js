@@ -11453,12 +11453,16 @@ fieldset:disabled .btn {
   margin-bottom: 4%;
 }
 
+.pTable {
+  text-align: center;
+}
+
 .hide {
   display: none;
 }
 
-.ebtn:first-of-type {
-  margin-right: 15px;
+.ubtn:first-of-type {
+  margin-bottom: 15px;
 }
 
 .formbtn:hover {
@@ -11470,5 +11474,9 @@ fieldset:disabled .btn {
 .formbtn:focus {
   background-color: #ebebeb;
   border: 1px solid;
+}
+
+.notes {
+  text-align: left;
 }
 /*# sourceMappingURL=style.css.map */

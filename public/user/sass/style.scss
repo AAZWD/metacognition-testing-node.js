@@ -123,13 +123,16 @@ $det2: rgb(241, 203, 96);
 
 
 //Patient Directory
+.pTable{
+    text-align: center;
+}
 .hide{
     display: none;
 }
 
 //edit patient profile
-.ebtn:first-of-type{
-    margin-right: 15px;
+.ubtn:first-of-type{
+    margin-bottom: 15px;
 }
 .formbtn:hover{
     background-color: $sec-bg;
@@ -140,4 +143,7 @@ $det2: rgb(241, 203, 96);
 .formbtn:focus{
     background-color: $gen-bg;
     border: 1px solid;
+}
+.notes{
+    text-align: left;
 }

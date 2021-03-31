@@ -16,6 +16,7 @@ const mongoose = require('mongoose');
 //get schemas
 const userCollection = require('./uSchema');
 const patientCollection = require('./pSchema');
+const testCollection = require('./tSchema');
 const connectionString = "mongodb+srv://comit:comit@cluster0.ulggk.mongodb.net/cma?retryWrites=true&w=majority";
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -165,7 +166,7 @@ app.get('/user/patient_directory', (req, res) => {
         if (uData[0].lname) lname = uData[0].lname
         console.log('uData', uData);
         //get patient data
-        patientCollection.find({uID: uData[0]._id}, function (err, result) {
+        patientCollection.find({ uID: uData[0]._id }, function (err, result) {
             console.log('find patients result', result)
             res.render('user/patient_directory',
                 {
@@ -196,7 +197,7 @@ app.get('/user/edit_profile', (req, res) => {
         if (uData[0].lname) lname = uData[0].lname
         console.log('uData', uData);
         //get patient data
-        patientCollection.find({uID: uData[0]._id}, function (err, pResult) {
+        patientCollection.find({ uID: uData[0]._id }, function (err, pResult) {
             console.log('find patients result', pResult)
 
             //get test data with patient _id
@@ -399,32 +400,46 @@ app.post('/user/patient_directory', urlencodedParser, (req, res) => {
 
 //Searching to delete
 app.post('/user/edit_profile', urlencodedParser, (req, res) => {
-    console.log('Post Request Headers:', req.headers)
-        let uData = req.session.user;
-        //load nav w user info        
-        let date = new Date;
-        date = date.toDateString();
-        let fname = 'New'
-        let lname = 'User'
-        if (uData[0].fname) fname = uData[0].fname
-        if (uData[0].lname) lname = uData[0].lname
-        console.log('uData', uData);
-        //get patient data
-        patientCollection.find({uID: uData[0]._id}, function (err, pResult) {
-            console.log('find patients result', pResult)
+    let uData = req.session.user;
+    //load nav w user info        
+    let date = new Date;
+    date = date.toDateString();
+    let fname = 'New'
+    let lname = 'User'
+    if (uData[0].fname) fname = uData[0].fname
+    if (uData[0].lname) lname = uData[0].lname
 
-            //get test data with patient _id
-            res.render('user/edit_profile',
-                {
-                    fname: fname,
-                    lname: lname,
-                    date: date,
-                    page: 'Edit Profiles',
-                    pData: pResult
-                    //tData: tResult
-                }
-            );
-        });
+    //DELETE POST
+    let delID = req.body.deletedPatient
+    console.log(delID)
+    if (delID) {
+        patientCollection.deleteOne({ _id: delID }, function (err) {
+            if (!err) console.log(delID , 'deleted')
+          });
+          /////////////DELETE THEM FROM TEST DB USING DELETEMANY
+    //UPDATE POST
+        } else {
+        //update
+    }
+    //then find and render
+    //get new patient data
+    patientCollection.find({ uID: uData[0]._id }, function (err, pResult) {
+        console.log('find patients result', pResult)
+        //get test data with patient _id
+
+        res.render('user/edit_profile',
+            {
+                fname: fname,
+                lname: lname,
+                date: date,
+                page: 'Edit Profiles',
+                pData: pResult
+                //tData: tResult
+            }
+        );
+
+
+    });
 });
 
 /*

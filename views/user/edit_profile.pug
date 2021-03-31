@@ -23,7 +23,7 @@ block content
             
         .row.mb-4
             .col.col-9
-                table.table.table-hover
+                table.table.table-hover.pTable
                     thead
                         //align="center"
                         tr 
@@ -39,15 +39,13 @@ block content
                                 td.id= val._id.toString()
                                 td= val.fname
                                 td.name= val.lname
-                                td= val.notes
+                                td.notes= val.notes
                                 td 
-                                    button.formbtn.btn.mb-2(type='button') Test Data 
-                                    //will display test data in sub tr
+                                    button.uPat.ubtn.formbtn.btn(type='button') Update
                                 td 
-                                    button.uPat.formbtn.btn(type='button') Update
                                     form.deleteForm(action='/user/edit_profile' method='post' enctype="application/x-www-form-urlencoded")
-                                        button.deleteBtn.formbtn.btn(type='submit' value= val._id) Delete
-                                        //confirm before sending get request
-                            tr.data test data goes here
+                                        input.dPat(type="hidden" name="deletedPatient" value= val._id)
+                                        button.formbtn.btn(type='submit') Delete
+                                        
                                 
                             
