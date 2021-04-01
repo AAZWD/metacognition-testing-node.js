@@ -1,0 +1,26 @@
+extends ./layout.pug
+block content
+    - var pData = pData;
+    #patient_info.conatiner
+        .row
+            .col-8
+                h6 Lorem Ipsum Dolor
+                p Before staring a test session lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt exercitationem quibusdam magni nostrum, reiciendis fugit consequatur a tempora velit autem voluptatum ab sequi nulla, similique tenetur accusantium. Cum, ratione veritatis?
+        br
+    form#patient(action='/test/mfm_q' method='post' enctype="application/x-www-form-urlencoded")
+        .row.mb-1
+            .col-3
+                label(for='pID') Patient:
+                select.form-control(name='pID' required)
+                    each val in pData
+                        option(value= val._id)= val.fname + " " + val.lname + " (" + val._id + ")"
+        br
+        .row.mb-1
+            .col-3
+                label(for='test') Test:
+                select.form-control(name='test' readonly)
+                    option(value="VDS") Visual Digit Span
+        br
+        .row.mb-1
+            .col-2.mt-4
+                button.btn.mb-2(type='submit') Begin

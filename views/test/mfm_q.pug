@@ -1,0 +1,59 @@
+extends ./layout.pug
+block content
+    -var id = testID
+    br 
+    .row.d-flex.justify-content-center
+        .col-6
+            h5= 'Instructions:'
+    .row.d-flex.justify-content-center
+        #instructions.col-6
+            |  Below are statements about feelings that people may have about their memory. Read each statement and think about your feelings over the past 7 days. Then, click the box next to the response that best describes how much you agree or disagree.
+
+    .col.d-flex.justify-content-center
+        form(action='/test/digit_span' method='post' enctype="application/x-www-form-urlencoded")
+            .col.question
+                | My memory is worse than most other people my age
+            .col.radio
+                input(type='radio' id='q1' value='Strongly Disagree' name='mfmq1')
+                label(for='q1') Strongly Disagree
+                input(type='radio' id="q2" value='Disagree' name='mfmq1')
+                label(for='q2') Disagree                   
+                input(type='radio' id="q4" value='Undecided' name='mfmq1')
+                label(for='q3') Undecided
+                input(type='radio' id="q4" value='Agree' name='mfmq1')
+                label(for='q4') Agree                    
+                input(type='radio' id="q5" value='Strongly Agree' name='mfmq1')
+                label(for='q5') Strongly Agree                    
+
+            .col.question
+                | I have confidence in my ability to remember things
+            .col.radio
+                input(type='radio' id='q1' value='Strongly Disagree' name='mfmq2')
+                label(for='q1') Strongly Disagree
+                input(type='radio' id="q2" value='Disagree' name='mfmq2')
+                label(for='q2') Disagree                   
+                input(type='radio' id="q4" value='Undecided' name='mfmq2')
+                label(for='q3') Undecided
+                input(type='radio' id="q4" value='Agree' name='mfmq2')
+                label(for='q4') Agree                    
+                input(type='radio' id="q5" value='Strongly Agree' name='mfmq2')
+                label(for='q5') Strongly Agree 
+
+            .col.question
+                | I worry that I will forget something important
+            .col.radio
+                input(type='radio' id='q1' value='Strongly Disagree' name='mfmq3')
+                label(for='q1') Strongly Disagree
+                input(type='radio' id="q2" value='Disagree' name='mfmq3')
+                label(for='q2') Disagree                   
+                input(type='radio' id="q4" value='Undecided' name='mfmq3')
+                label(for='q3') Undecided
+                input(type='radio' id="q4" value='Agree' name='mfmq3')
+                label(for='q4') Agree                    
+                input(type='radio' id="q5" value='Strongly Agree' name='mfmq3')
+                label(for='q5') Strongly Agree 
+            //hidden test id
+            input.form-control(type='hidden' value= id name='id' readonly)
+            br
+            .col.btn.mt-4.d-flex.justify-content-end.fixed-bottom
+                button.btn.mb-2(type='submit') Submit

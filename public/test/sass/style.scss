@@ -1,0 +1,86 @@
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+
+$general-bg: rgb(255, 255, 255);
+
+
+
+$text-col-1: rgb(206, 23, 23);
+$text-col-2: rgb(11, 12, 17);
+
+
+
+
+
+body {
+    background-color: $general-bg;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+//exit
+nav{
+    padding: 3%;
+    font-size: 18px;
+}
+nav a:link, nav a:visited, nav a:active{
+    color: $text-col-1
+}
+
+nav a:hover{
+    font-weight: bolder;
+}
+
+h1{
+   margin-top: 2%;
+    margin-bottom: 50px;
+    font-size: 3em; 
+}
+button{
+    color: $text-col-2;
+    font-size: 18px;
+}
+#instructions{
+    font-size: larger;
+}
+label{
+    text-align: center;
+}
+.radio label {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 3%;
+}
+.radio input {
+    display: inline-block;
+    margin-right:5px;
+}
+
+.question{
+    margin-top: 30px;
+}
+
+form{
+    width: 70%;
+    font-size: larger;
+}
+.question , .radio{
+    margin: auto;
+    width: 60%;
+    text-align: center;
+}
+.question{
+    margin-bottom: 2%;
+    margin-top: 5%;
+    font-weight:bold;
+}
+
+.btn{
+    margin-bottom: 5%;
+    margin-right: 5%;
+    font-size: 18px;
+    color: $text-col-2;
+}

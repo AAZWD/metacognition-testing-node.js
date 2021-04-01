@@ -61,7 +61,6 @@ app.get('/error', (req, res) => {
 });
 ////////////////AUTHORIZED ACCESS REQUIRED//////////
 
-///create function for the session check plus rendering info for layout, to reduce repitition
 //dashboard
 app.get('/user/dashboard', (req, res) => {
     //logged in check
@@ -217,6 +216,48 @@ app.get('/user/edit_profile', (req, res) => {
     }
 });
 
+//test starting page
+app.get('/user/test_start', (req, res) => {
+    //logged in check
+    if (req.session.user) {
+        let uData = req.session.user;
+        //load nav w user info        
+        let date = new Date;
+        date = date.toDateString();
+        let fname = 'New'
+        let lname = 'User'
+        if (uData[0].fname) fname = uData[0].fname
+        if (uData[0].lname) lname = uData[0].lname
+        console.log('uData', uData);
+        //get all user's patient's IDs
+        patientCollection.find({ uID: uData[0]._id }, '_id fname lname', function (err, pResult) {
+            console.log('all IDs result', pResult)
+            // patient _id
+            res.render('user/test_start',
+                {
+                    fname: fname,
+                    lname: lname,
+                    date: date,
+                    page: 'Begin Testing',
+                    pData: pResult
+                }
+            );
+        });
+    } else {
+        res.redirect('/error');
+    }
+});
+
+///GET methods into test pages not allowed
+app.get('/test/mfm_q', (req, res) => {
+    res.redirect('/error');
+});
+app.get('/test/end_test', (req, res) => {
+    res.redirect('/error');
+});
+app.get('/test/digit_span', (req, res) => {
+    res.redirect('/error');
+});
 
 /////////POST//////////////////
 //after logging in and creating an account
@@ -373,7 +414,7 @@ app.post('/user/register', urlencodedParser, (req, res) => {
     );
 });
 
-////from end of test
+////dont need this
 app.post('/user/patient_directory', urlencodedParser, (req, res) => {
     //check user exists in database, then
     ////
@@ -414,23 +455,23 @@ app.post('/user/edit_profile', urlencodedParser, (req, res) => {
     console.log(delID)
     if (delID) {
         patientCollection.deleteOne({ _id: delID }, function (err) {
-            if (!err) console.log(delID , 'deleted')
-          });
-          /////////////DELETE THEM FROM TEST DB USING DELETEMANY
-          /////
-          /////
-          ////
-          ////
-          ////
-          ////
-    //UPDATE POST
-        } else {
-            let upID = req.body.updatedPatient
-            let patient = req.body
-            console.log('updated patients id', upID, req.body)
-            patientCollection.updateOne({ _id: upID }, patient, function (err, result) {
-                if (!err) console.log(upID , 'updated')
-          });
+            if (!err) console.log(delID, 'deleted')
+        });
+        /////////////DELETE THEM FROM TEST DB USING DELETEMANY
+        /////
+        /////
+        ////
+        ////
+        ////
+        ////
+        //UPDATE POST
+    } else {
+        let upID = req.body.updatedPatient
+        let patient = req.body
+        console.log('updated patients id', upID, req.body)
+        patientCollection.updateOne({ _id: upID }, patient, function (err, result) {
+            if (!err) console.log(upID, 'updated')
+        });
     }
     //then find and render
     //get new patient data
@@ -453,23 +494,60 @@ app.post('/user/edit_profile', urlencodedParser, (req, res) => {
     });
 });
 
-/*
-//make sure certain pages (ie.games or game session loader or game end page etc. are not accessible 
-without first having posted something), should throw an error and redirect to
-the appropriate static error page
 
-//also anything requiring a login should not be accessible without logging in first
-*/
-//^^^^^^^^ for all this that means you can only post into those pages
-//create gets that throws an error for the games and an unuthorized warning for the other pages
+//post into mfm q
+app.post('/test/mfm_q', urlencodedParser, (req, res) => {
+    const test = req.body
+    console.log('patient # and the test taken', req.body)
+    //get user id
+    let uData = req.session.user
+    //create test record in db
+    testCollection.create({ pID: test.pID, uID: uData[0]._id }, function (err, result) {
+        if (err) {
+            return console.log('error');
+        } else {
+            console.log('created db record id', result);
+            //get test record id
+            testCollection.find({ _id: result._id }, function (err, result) {
+                if (!err) {
+                    console.log('found records:', result)
+                    res.render('test/mfm_q',
+                        {
+                            testID: result._id,
+                            page: 'Questionnaire'
+                        }
+                    )
+                } else {
+                    return console.log('couldnt find test record')
+                }
+            })
 
-/*
-WILL REFRESH THE PAGE LIKE AN AUTOMTAIC UPDATE
-app.get('/delete/:id', (req, res) => {
-    const productIndex = products.findIndex(p => p.id == req.params.id)
-    products.splice(productIndex, 1);
-    res.redirect('/'); ///////AJAX LIKE!!
-})*/
+        }
+
+    });
+
+});
+//post into digit span
+app.post('/test/digit_span', urlencodedParser, (req, res) => {
+    const test = req.body
+    console.log('test # and answers to qs', req.body)
+    let testAns = [test.mfmq1, test.mfmq2, test.mfmq3]
+    console.log(testAns)
+    //update db 
+    testCollection.updateOne({ _id: test.id }, {MFM_ans: testAns}, function (err, result) {
+        console.log('updated results:', result)    
+        res.render('test/digit_span',
+            {
+                page: 'Digit Span',
+                testID: test.id
+            }
+        );
+    });
+
+});
+//post into end test
+
+
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);

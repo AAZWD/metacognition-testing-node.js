@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const tSchema = new mongoose.Schema({
   //Multi-factorial memory Questionnaire
   MFM_ans: {
-    type: [Number]
+    type: [String]
     //required: [true, 'Need mem answers']
   },
   //Digit Span test
@@ -29,13 +29,21 @@ const tSchema = new mongoose.Schema({
   },
   //Metacognition questions (one in middle one at end)
   MC_ans: {
-    type: [Number],
-    required: [true, 'Need metacog answers']
+    type: [Number]
+    //required: [true, 'Need metacog answers']
   },
   //completion status
   complete: {
-    type: Boolean,
-    required: [true, 'Need completion status']
+    type: Boolean
+    //required: [true, 'Need completion status']
+  },
+  pID: {
+    type: String,
+    required: [true, 'Need patients ID #']
+  },
+  uID: {
+    type: String,
+    required: [true, 'Need user ID #']
   }
 });
 module.exports = mongoose.model('testCollection', tSchema);

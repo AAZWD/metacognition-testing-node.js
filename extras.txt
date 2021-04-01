@@ -1,4 +1,4 @@
-1. responsive HOME
+1. AWAIT/ASYNC db functions see screenshot
 2. check if matching input is in database as form validation:
     login
     account creation
