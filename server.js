@@ -455,16 +455,12 @@ app.post('/user/edit_profile', urlencodedParser, (req, res) => {
     console.log(delID)
     if (delID) {
         patientCollection.deleteOne({ _id: delID }, function (err) {
-            if (!err) console.log(delID, 'deleted')
+            if (!err) console.log(delID, 'deleted patient')
         });
-        /////////////DELETE THEM FROM TEST DB USING DELETEMANY
-        /////
-        /////
-        ////
-        ////
-        ////
-        ////
-        //UPDATE POST
+        //delete patients tests
+        testCollection.deleteMany({ pID: delID }, function (err) {
+            if (!err) console.log(delID, 'tests deleted')
+        });
     } else {
         let upID = req.body.updatedPatient
         let patient = req.body
@@ -506,24 +502,16 @@ app.post('/test/mfm_q', urlencodedParser, (req, res) => {
         if (err) {
             return console.log('error');
         } else {
-            console.log('created db record id', result);
-            //get test record id
-            testCollection.find({ _id: result._id }, function (err, result) {
-                if (!err) {
-                    console.log('found records:', result)
-                    res.render('test/mfm_q',
-                        {
-                            testID: result._id,
-                            page: 'Questionnaire'
-                        }
-                    )
-                } else {
-                    return console.log('couldnt find test record')
+            console.log('created db record', result);
+
+            console.log('found records id:', result._id)
+            res.render('test/mfm_q',
+                {
+                    testID: result._id,
+                    page: 'Questionnaire'
                 }
-            })
-
+            );
         }
-
     });
 
 });
@@ -534,8 +522,8 @@ app.post('/test/digit_span', urlencodedParser, (req, res) => {
     let testAns = [test.mfmq1, test.mfmq2, test.mfmq3]
     console.log(testAns)
     //update db 
-    testCollection.updateOne({ _id: test.id }, {MFM_ans: testAns}, function (err, result) {
-        console.log('updated results:', result)    
+    testCollection.updateOne({ _id: test.id }, { MFM_ans: testAns }, function (err, result) {
+        console.log('updated results:', result)
         res.render('test/digit_span',
             {
                 page: 'Digit Span',
