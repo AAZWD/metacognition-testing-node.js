@@ -9,7 +9,7 @@ $text-col-1: rgb(206, 23, 23);
 $text-col-2: rgb(11, 12, 17);
 
 
-
+$btn-bg: rgb(235,235,235);
 
 
 body {
@@ -78,9 +78,50 @@ form{
     font-weight:bold;
 }
 
-.btn{
+.end{
     margin-bottom: 5%;
     margin-right: 5%;
-    font-size: 18px;
+    font-size: 20px;
     color: $text-col-2;
+}
+.end .btn{
+    width: 200px;
+}
+//digit span
+.dsBtn{
+    margin-top: 2%;
+    background-color: $btn-bg;
+    width:100px;
+}
+.dsBtn:hover{
+    border: 2px solid black;
+}
+
+#label{
+    font-size: larger;
+    display: flex;
+    justify-content: center;
+}
+
+.answer input{
+    width: 300px;
+}
+.answer{
+    margin: auto;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+#number, #circle{
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+#circle{
+    color: $text-col-1;
+}
+
+.hide{
+   display: none;
 }

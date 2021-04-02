@@ -23,4 +23,6 @@ block content
         br
         .row.mb-1
             .col-2.mt-4
+                //hidden completetion status, will be false until posting to test_end
+                input.form-control(type='hidden' value= 'false' name='complete' readonly)
                 button.btn.mb-2(type='submit') Begin

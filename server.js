@@ -248,15 +248,32 @@ app.get('/user/test_start', (req, res) => {
     }
 });
 
-///GET methods into test pages not allowed
+//get into test_end via exit
+app.get('/test/test_end', (req, res) => {
+    //logged in check
+    if (req.session.user) {
+        res.render('user/test_end',
+            {
+                page: 'End of Test'
+            }
+        );
+
+    } else {
+        res.redirect('/error');
+    }
+});
+
+///GET methods into test pages not allowed//////
 app.get('/test/mfm_q', (req, res) => {
     res.redirect('/error');
 });
-app.get('/test/end_test', (req, res) => {
-    res.redirect('/error');
-});
 app.get('/test/digit_span', (req, res) => {
-    res.redirect('/error');
+    res.render('test/digit_span',
+        {
+            page: 'Digit Span'
+        }
+    );
+    //res.redirect('/error');
 });
 
 /////////POST//////////////////
@@ -490,7 +507,6 @@ app.post('/user/edit_profile', urlencodedParser, (req, res) => {
     });
 });
 
-
 //post into mfm q
 app.post('/test/mfm_q', urlencodedParser, (req, res) => {
     const test = req.body
@@ -498,7 +514,7 @@ app.post('/test/mfm_q', urlencodedParser, (req, res) => {
     //get user id
     let uData = req.session.user
     //create test record in db
-    testCollection.create({ pID: test.pID, uID: uData[0]._id }, function (err, result) {
+    testCollection.create({ pID: test.pID, uID: uData[0]._id, test: test.test, complete: test.complete }, function (err, result) {
         if (err) {
             return console.log('error');
         } else {
@@ -515,6 +531,7 @@ app.post('/test/mfm_q', urlencodedParser, (req, res) => {
     });
 
 });
+
 //post into digit span
 app.post('/test/digit_span', urlencodedParser, (req, res) => {
     const test = req.body
@@ -533,9 +550,21 @@ app.post('/test/digit_span', urlencodedParser, (req, res) => {
     });
 
 });
-//post into end test
 
+//post into end test upon completion of test
+app.post('/test/test_end', urlencodedParser, (req, res) => {
+    const test = req.body
+    //need to change completed to true
+    //split data and add to db as necessary
 
+});
+
+//post into test_start from test_end via password 
+app.post('/test/test_end', urlencodedParser, (req, res) => {
+    const test = req.body
+    //need to compare password to req.session.user's password
+
+});
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);

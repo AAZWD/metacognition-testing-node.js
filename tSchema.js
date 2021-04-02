@@ -11,7 +11,7 @@ const tSchema = new mongoose.Schema({
     type: Date
     //required: [true, 'Need start']
   },
-  end: {
+  time: {
     type: Date
     //required: [true, 'Need end']
   },
@@ -34,8 +34,8 @@ const tSchema = new mongoose.Schema({
   },
   //completion status
   complete: {
-    type: Boolean
-    //required: [true, 'Need completion status']
+    type: Boolean,
+    required: [true, 'Need completion status']
   },
   pID: {
     type: String,
@@ -44,6 +44,11 @@ const tSchema = new mongoose.Schema({
   uID: {
     type: String,
     required: [true, 'Need user ID #']
+  },
+  //test type, currently just VDS
+  test: {
+    type: String,
+    required: [true, 'Need patients test']
   }
 });
 module.exports = mongoose.model('testCollection', tSchema);
