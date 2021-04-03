@@ -29,7 +29,7 @@ const tSchema = new mongoose.Schema({
   },
   //Metacognition questions (one in middle one at end)
   MC_ans: {
-    type: [Number]
+    type: [String]
     //required: [true, 'Need metacog answers']
   },
   //completion status

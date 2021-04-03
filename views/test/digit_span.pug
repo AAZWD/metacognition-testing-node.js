@@ -9,44 +9,57 @@ block content
         #instructions.col-6
             | For the duration of 3 trials, you will be presented with a sequence of digits, 
             | where each digit is visible for 1 second. The start and end of the sequence will be signaled 
-            | with a red circle, at which point you can type out your recollection of the number 
+            | with an asterisk. You can type out your recollection of the number 
             | sequence in the input area provided below. If the response is correct (in digits and 
             | presentation order), you will move up to the next level and be provided with a longer 
             | sequence of digits to recall. Click 'Confirm' below to begin.
-    
-    #testArea.hide
-        .row.d-flex.justify-content-center
-            #number.col-6.hide
-                | number goes here
-            #circle.col-6
-                span#icon.fas.fa-circle 
-        .row.d-flex.justify-content-center
-            #label.col-6
-                label(for='answer') Type The Numbers Here:
-        .row.d-flex.justify-content-center
-            .answer.col-6
-                input.form-control(type='text' name='answer')
     .row.d-flex.justify-content-center
-        button.dsBtn.btn.mb-2(type='button' name='submit') Confirm
+        button#confirm.dsBtn.btn.mb-2(type='button' name='confirm') Confirm
+    
+    .row.d-flex.justify-content-center
+        #number.col-6.hide
+            | 
+    .row.d-flex.justify-content-center
+        form.hide(action='' method='get' enctype="application/x-www-form-urlencoded")
+            .row.d-flex.justify-content-center
+                #label.col-6
+                    label(for='answer') Type Numbers Here:
+            .row.d-flex.justify-content-center
+                .answer.col-6
+                    input#answer.form-control(type='text' name='answer')
+            .row.d-flex.justify-content-center
+                    button#submit.dsBtn.btn.mb-2(type='button' name='submit') Submit
 
     .col.d-flex.justify-content-center
-        form(action='test/test_end' method='post' enctype="application/x-www-form-urlencoded")
+        form#end.hide(action='test/test_end' method='post' enctype="application/x-www-form-urlencoded")
             .col
+                .col.question
+                    | On the following scale, please rate how well you think you did on this task
+                .col.radio
+                    input(type='radio' id='q1' value='Strongly Disagree' name='mc1' required)
+                    label(for='q1') Strongly Disagree
+                    input(type='radio' id="q2" value='Disagree' name='mc1')
+                    label(for='q2') Disagree                   
+                    input(type='radio' id="q4" value='Undecided' name='mc1')
+                    label(for='q3') Undecided
+                    input(type='radio' id="q4" value='Agree' name='mc1')
+                    label(for='q4') Agree                    
+                    input(type='radio' id="q5" value='Strongly Agree' name='mc1')
+                    label(for='q5') Strongly Agree 
                 ///////HIDDEN VARIABLE COLLECTION///////
                 //test id
                 input.form-control(type='hidden' value= id name='id' readonly)
                 //start 
-                input.form-control(type='hidden' name='start')
+                input#startTime.form-control(type='hidden' name='start')
                 //end 
-                input.form-control(type='hidden' name='time')
+                input#totalTime.form-control(type='hidden' name='time')
                 //lastDS
-                input.form-control(type='hidden' name='lastDS')
+                input#last.form-control(type='hidden' name='lastDS')
                 //longDS
-                input.form-control(type='hidden' name='longDS')
+                input#long.form-control(type='hidden' name='longDS')
                 //TEST_ans (levels in array)
-                input.form-control(type='hidden' name='TEST_ans')
-                //MC_ans
-                input.form-control(type='hidden' name='MC_ans')
+                input#test.form-control(type='hidden' name='TEST_ans')
+                
             .end.col.mt-4.d-flex.justify-content-end.fixed-bottom
                 button.btn.mb-2(type='submit') End Testing
     
