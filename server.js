@@ -420,7 +420,7 @@ app.post('/user/register', urlencodedParser, (req, res) => {
     date = date.toDateString();
 
     patientCollection.create(patient, function (err, result) {
-        if (err) return console.log('error');
+        if (err) return console.log('error', err);
         else return console.log('works');
     });
     res.render('user/register',
