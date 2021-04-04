@@ -167,15 +167,21 @@ app.get('/user/patient_directory', (req, res) => {
         //get patient data
         patientCollection.find({ uID: uData[0]._id }, function (err, result) {
             console.log('find patients result', result)
-            res.render('user/patient_directory',
+            //get test data
+            testCollection.find({ uID: uData[0]._id }, function(err2, result2){
+                
+                res.render('user/patient_directory',
                 {
                     fname: fname,
                     lname: lname,
                     date: date,
                     page: 'Patient Directory',
-                    data: result
+                    data: result,
+                    tData: result2
                 }
             );
+            });
+            
         });
     } else {
         res.redirect('/error');
@@ -252,7 +258,7 @@ app.get('/user/test_start', (req, res) => {
 app.get('/test/test_end', (req, res) => {
     //logged in check
     if (req.session.user) {
-        res.render('user/test_end',
+        res.render('test/test_end',
             {
                 page: 'End of Test'
             }
@@ -267,13 +273,9 @@ app.get('/test/test_end', (req, res) => {
 app.get('/test/mfm_q', (req, res) => {
     res.redirect('/error');
 });
+//digit span
 app.get('/test/digit_span', (req, res) => {
-    res.render('test/digit_span',
-        {
-            page: 'Digit Span'
-        }
-    );
-    //res.redirect('/error');
+    res.redirect('/error');
 });
 
 /////////POST//////////////////
@@ -556,13 +558,70 @@ app.post('/test/test_end', urlencodedParser, (req, res) => {
     const test = req.body
     //need to change completed to true
     //split data and add to db as necessary
+    console.log(test)
+    let MCans = [test.mc1]
+    console.log('MCans', MCans)
+    //convert to array and then map as int
+    let TESTans = test.TEST_ans.split(',').map(x => +x);
+    console.log('TESTans', TESTans)
+    testCollection.updateOne({ _id: test.id },
+        {
+            complete: test.complete,
+            MC_ans: MCans,
+            TEST_ans: TESTans,
+            longDS: test.longDS,
+            lastDS: test.lastDS,
+            time: test.time,
+            date: test.start
+        }, function (err, result) {
+            if (!err) {
+                res.render('test/test_end',
+                    {
+                        page: 'Testing Completed'
+                    }
+                );
+            } else {
+                console.log(err)
+            }
+            console.log('updated results:', result)
+
+        });
 
 });
 
 //post into test_start from test_end via password 
-app.post('/test/test_end', urlencodedParser, (req, res) => {
-    const test = req.body
-    //need to compare password to req.session.user's password
+app.post('/user/test_start', urlencodedParser, (req, res) => {
+    let input = req.body.password
+    console.log('their input', input)
+    let password = req.session.user[0].pass;
+    console.log('the password', password)
+    if (password === input) {
+        let uData = req.session.user;
+        //load nav w user info        
+        let date = new Date;
+        date = date.toDateString();
+        let fname = 'New'
+        let lname = 'User'
+        if (uData[0].fname) fname = uData[0].fname
+        if (uData[0].lname) lname = uData[0].lname
+        console.log('uData', uData);
+        //get all user's patient's IDs
+        patientCollection.find({ uID: uData[0]._id }, '_id fname lname', function (err, pResult) {
+            console.log('all IDs result', pResult)
+            // patient _id
+            res.render('user/test_start',
+                {
+                    fname: fname,
+                    lname: lname,
+                    date: date,
+                    page: 'Begin Testing',
+                    pData: pResult
+                }
+            );
+        });
+    } else {
+        res.redirect('/test/test_end');
+    }
 
 });
 

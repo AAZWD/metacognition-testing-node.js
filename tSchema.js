@@ -7,12 +7,12 @@ const tSchema = new mongoose.Schema({
     //required: [true, 'Need mem answers']
   },
   //Digit Span test
-  start: {
-    type: Date
+  date: {
+    type: String
     //required: [true, 'Need start']
   },
   time: {
-    type: Date
+    type: String
     //required: [true, 'Need end']
   },
   lastDS: {
@@ -24,7 +24,7 @@ const tSchema = new mongoose.Schema({
     //required: [true, 'Need longest digit span']
   },
   TEST_ans: {
-    type: [Boolean]
+    type: [Number]
     //required: [true, 'Need test answers']
   },
   //Metacognition questions (one in middle one at end)

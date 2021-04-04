@@ -20,7 +20,7 @@ block content
         #number.col-6.hide
             | 
     .row.d-flex.justify-content-center
-        form.hide(action='' method='get' enctype="application/x-www-form-urlencoded")
+        form#startForm.hide(action='' method='get' enctype="application/x-www-form-urlencoded")
             .row.d-flex.justify-content-center
                 #label.col-6
                     label(for='answer') Type Numbers Here:
@@ -31,7 +31,7 @@ block content
                     button#submit.dsBtn.btn.mb-2(type='button' name='submit') Submit
 
     .col.d-flex.justify-content-center
-        form#end.hide(action='test/test_end' method='post' enctype="application/x-www-form-urlencoded")
+        form#endForm.hide(action='/test/test_end' method='post' enctype="application/x-www-form-urlencoded")
             .col
                 .col.question
                     | On the following scale, please rate how well you think you did on this task
@@ -46,19 +46,21 @@ block content
                     label(for='q4') Agree                    
                     input(type='radio' id="q5" value='Strongly Agree' name='mc1')
                     label(for='q5') Strongly Agree 
-                ///////HIDDEN VARIABLE COLLECTION///////
-                //test id
-                input.form-control(type='hidden' value= id name='id' readonly)
-                //start 
-                input#startTime.form-control(type='hidden' name='start')
-                //end 
-                input#totalTime.form-control(type='hidden' name='time')
-                //lastDS
-                input#last.form-control(type='hidden' name='lastDS')
-                //longDS
-                input#long.form-control(type='hidden' name='longDS')
-                //TEST_ans (levels in array)
-                input#test.form-control(type='hidden' name='TEST_ans')
+            ///////HIDDEN VARIABLE COLLECTION///////
+            //test id
+            input.form-control(type='hidden' value= id name='id' readonly)
+            //start 
+            input#startTime.form-control(type='hidden' name='start')
+            //end 
+            input#totalTime.form-control(type='hidden' value = 0 name='time')
+            //lastDS
+            input#last.form-control(type='hidden' name='lastDS')
+            //longDS
+            input#long.form-control(type='hidden' name='longDS')
+            //TEST_ans (levels in array)
+            input#test.form-control(type='hidden' name='TEST_ans')
+            //completed
+            input#test.form-control(type='hidden' value="true" name='complete')
                 
             .end.col.mt-4.d-flex.justify-content-end.fixed-bottom
                 button.btn.mb-2(type='submit') End Testing

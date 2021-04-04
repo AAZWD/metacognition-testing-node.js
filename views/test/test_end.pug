@@ -1,1 +1,28 @@
-//password check to go to test_start
+doctype html
+head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel="stylesheet" href="../test/sass/style.css")
+    script(type='text/javascript' src='../test/js/test.js' defer)
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous")
+    link(rel="shortcut icon" href="../img/favicon.png" type="image/x-icon")
+    title= 'CMA ' + page
+    
+body.bg-image
+    script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js' integrity='sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh' crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' integrity='sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ' crossorigin='anonymous')
+        
+    -var error = error
+
+    #main.container-fluid
+        h1.d-flex.justify-content-center= page
+        .row.d-flex.justify-content-center
+            form#pwdcheck.needs-validation(action='/user/test_start' method='post' enctype="application/x-www-form-urlencoded" novalidate='')
+                .row.d-flex.justify-content-center
+                        label(for='pass') Enter Password:
+                        br
+                        input#pwd.answer(class= error type='password' placeholder='' name='password' required)
+                br
+                .row.d-flex.justify-content-center
+                    button.btn.dsBtn(type='submit') Submit

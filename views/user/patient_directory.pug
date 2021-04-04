@@ -4,7 +4,7 @@ block content
     script(type='text/javascript' src='../user/js/toggle.js')
 
     - var pData = data;
-    //var tData = tData
+    - var tData = tData
     
     #p_directory.conatiner
         .row
@@ -93,7 +93,48 @@ block content
                                 td 
                                     button.formbtn.btn.mb-2(type='button' value= index onclick='toggle(this.value)') Test Data 
                                     //will display test data in sub tr
-                            tr(class= 'hide num' + index)
-                                td(colspan='13') gggggggg
+                            if (tData)
+                                tr.tData(class= 'hide num' + index)
+                                    td(colspan='13')
+                                        .container 
+                                            .row 
+                                                each test in tData 
+                                                    if (test.pID == val._id.toString())
+                                                        .col
+                                                            h5= 'Multi-factorial Memory Questionnaire Responses'
+                                                            strong= 'My memory is worse than most other people my age' 
+                                                            p= test.MFM_ans[0]
+                                                            strong= 'I have confidence in my ability to remember things'
+                                                            p= test.MFM_ans[1]
+                                                            strong= 'I worry that I will forget something important' 
+                                                            p= test.MFM_ans[2]
+                                                        .col
+                                                            h5= test.test + ' Results'
+                                                            strong= 'Completed: '
+                                                            span= test.complete
+                                                            br
+                                                            strong= 'Start Time: '
+                                                            span= test.date.slice(0,15)
+                                                            br
+                                                            strong= 'Total Time (mm:ss): '
+                                                            span= test.time
+                                                            br
+                                                            strong= 'Highest Level: '
+                                                            span= test.longDS
+                                                            br
+                                                            strong= 'Highest Level w/ 2 Consecutive Errors: '
+                                                            span= test.lastDS
+                                                            br
+                                                            strong= 'Levels Attempted: '
+                                                            each level in test.TEST_ans
+                                                                span= level + ' '
+                                                        .col
+                                                            h5= 'Metacognition Questionnaire Responses'
+                                                            strong= 'Rate how well you think you did on this task' 
+                                                            p= test.MC_ans[0]
+                                                
+
+
+
                             
                                     

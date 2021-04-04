@@ -3,11 +3,10 @@ window.onload = function () {
     let confirm = document.getElementById('confirm');
     console.log(confirm)
     let display = document.getElementById('number');
-    let form = document.querySelector('form');
-    let endForm = document.getElementById('end');
+    let form = document.querySelector('#startForm');
+    let endForm = document.getElementById('endForm');
     let start;
     let end;
-    let time;
     let random;
     let digits = [];
     let number = '';
@@ -24,7 +23,7 @@ window.onload = function () {
 
     let TEST_ans = [];
 
-    form.onsubmit = function(event){
+    form.onsubmit = function (event) {
         event.preventDefault();
     }
 
@@ -34,8 +33,7 @@ window.onload = function () {
         confirm.classList.add('hide');
         display.classList.remove('hide');
         //set start time
-        start.value = new Date()
-        console.log(start.value)
+        start = new Date()
         //display numbers area
 
         display.classList.remove('hide');
@@ -78,7 +76,7 @@ window.onload = function () {
         trial++
         console.log('trial', trial)
         console.log('Test ans', TEST_ans)
-        if(trial == 1){
+        if (trial == 1) {
 
         }
         //track data
@@ -129,9 +127,9 @@ window.onload = function () {
             setTimeout(function () {
                 form.classList.remove('hide');
             }, (x * 1000));
-        }else{
+        } else {
             endForm.classList.remove('hide');
-            display.innerHTML = 'Test Completed. \n Answer the following question then click "End Testing" Below';
+            display.innerHTML = 'Test Completed. \n Answer the following question then click "End Testing"';
             end = new Date();
             //set hidden values
             let startTime = document.getElementById('startTime');
@@ -139,9 +137,14 @@ window.onload = function () {
             let last = document.getElementById('last');
             let long = document.getElementById('long');
             let test = document.getElementById('test');
-            
+
             startTime.value = start;
-            totalTime.value = Math.abs(end - start); //in milliseconds
+            function millisToMinutesAndSeconds(millis) {
+                let minutes = Math.floor(millis / 60000);
+                let seconds = ((millis % 60000) / 1000).toFixed(0);
+                return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+            }
+            totalTime.value = millisToMinutesAndSeconds(end - start);
             last.value = lastDS;
             long.value = longDS;
             test.value = TEST_ans;
