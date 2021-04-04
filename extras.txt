@@ -3,3 +3,4 @@
     change fomrs to alwasy have labels
     forms should have fieldsets and legends
     
+3. search by last name include toLowerCase for input and name
