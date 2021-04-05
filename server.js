@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -74,17 +75,24 @@ app.get('/user/dashboard', (req, res) => {
         //query fname and last name from collection w/ email
         if (uData[0].fname) fname = uData[0].fname
         if (uData[0].lname) lname = uData[0].lname
-        //get patient info from db
-        //get test info from db
-        //pass both to page
-        res.render('user/dashboard',
-            {
-                fname: fname,
-                lname: lname,
-                date: date,
-                page: 'Dashboard'
+
+        //dasboard data
+        testCollection.find({ uID: uData[0]._id }, function (err, result) {
+            if (!err) {
+                console.log(JSON.stringify(result, null, 2))
+                res.render('user/dashboard',
+                    {
+                        fname: fname,
+                        lname: lname,
+                        date: date,
+                        page: 'Dashboard',
+                        tests: JSON.stringify(result, null, 2)
+                    }
+                );
+            } else {
+                console.log('test', err)
             }
-        );
+        });
     } else {
         res.redirect('/error');
     }
@@ -168,20 +176,20 @@ app.get('/user/patient_directory', (req, res) => {
         patientCollection.find({ uID: uData[0]._id }, function (err, result) {
             console.log('find patients result', result)
             //get test data
-            testCollection.find({ uID: uData[0]._id }, function(err2, result2){
-                
+            testCollection.find({ uID: uData[0]._id }, function (err2, result2) {
+
                 res.render('user/patient_directory',
-                {
-                    fname: fname,
-                    lname: lname,
-                    date: date,
-                    page: 'Patient Directory',
-                    data: result,
-                    tData: result2
-                }
-            );
+                    {
+                        fname: fname,
+                        lname: lname,
+                        date: date,
+                        page: 'Patient Directory',
+                        data: result,
+                        tData: result2
+                    }
+                );
             });
-            
+
         });
     } else {
         res.redirect('/error');
