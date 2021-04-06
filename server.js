@@ -650,5 +650,5 @@ app.post('/user/test_start', urlencodedParser, (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`listening on port something`);
+    console.log(`listening on port ${port}`);
 });
