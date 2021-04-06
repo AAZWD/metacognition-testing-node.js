@@ -18,7 +18,7 @@ const userCollection = require('./uSchema');
 const patientCollection = require('./pSchema');
 const testCollection = require('./tSchema');
 //const connectionString = "mongodb+srv://comit:comit@cluster0.ulggk.mongodb.net/cma?retryWrites=true&w=majority";
-const connectionString = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI;
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on("error", function (error) {
