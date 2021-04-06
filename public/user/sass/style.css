@@ -11487,4 +11487,61 @@ fieldset:disabled .btn {
 .tData {
   text-align: left;
 }
+
+#dashboard h4, #dashboard .h4 {
+  color: #6e749c;
+  text-align: center;
+  font-weight: 400;
+}
+
+#dashboard p {
+  color: #e7a35a;
+  text-align: center;
+  font-weight: 500;
+  font-size: 30px;
+}
+
+#dashboard h3, #dashboard .h3 {
+  color: #494e6e;
+  font-weight: 400;
+}
+
+#select {
+  color: #6e749c;
+  font-weight: 400;
+  text-align: center;
+}
+
+#select select {
+  width: 50%;
+  margin: auto;
+}
+
+#select p {
+  font-size: 20px;
+}
+
+#statsAll, #statsDS {
+  font-weight: 400;
+}
+
+.hide {
+  display: none;
+}
+
+#select span {
+  font-size: 14px;
+}
+
+#blurb {
+  color: #0b0c11;
+  font-size: 18px;
+  font-weight: 300;
+  text-align: left;
+}
+
+#blurb h4, #blurb .h4 {
+  text-align: left;
+  margin-top: 15px;
+}
 /*# sourceMappingURL=style.css.map */

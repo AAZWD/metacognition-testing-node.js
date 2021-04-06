@@ -1,8 +1,56 @@
 extends ./layout.pug
 
 block content
-    script(type='text/javascript' src='../user/js/d3.min.js' defer).
     script(type='text/javascript' src='../user/js/dataV.js' defer).
+    input#testData(type="hidden" value=tests)
     
-    p shdfbdalfbsdbgdlbsbv
-    input(type="hidden" value=tests)
+    #dashboard.container.mt-5
+        .row 
+            h3= 'Analytics'
+        .row
+            #completedNum.col
+                h4= 'Completed Tests'
+                p
+            #totalNum.col
+                h4= 'Tests Total'
+                p 
+        #select.row.mt-5
+            .col-6
+                h4
+                    label(for='test') Test:
+                select.form-control(name='test')
+                    option(value="All") All Tests
+                    option(value="VDS") Visual Digit Span
+            #statsDS.col.hide
+                .row
+                    .col
+                        h5 Longest Digit Span
+                        p#loDS 
+                    .col
+                        h5 Longest Digit Span w/o 2 Consecutive Errors
+                        p#laDS
+                .row
+                    .col-6
+                        h5 Average Time
+                            span= "  mm:ss"
+                        p#tDS
+            #statsAll.col
+                .row
+                    .col-6.m-auto
+                        h5 Average Time
+                            span= "  mm:ss"
+                        p#tAll
+        
+            
+        .row.mt-5
+            h3= 'Testing Overview'        
+            .col                
+                #blurb
+                    h4 Lorem
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laboriosam est sapiente. Tempora, assumenda molestias maxime ullam excepturi officia beatae, voluptatibus tenetur eveniet vitae quo quia ratione ipsum? Earum, culpa.
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laboriosam est sapiente. Tempora, assumenda molestias maxime ullam excepturi officia beatae, voluptatibus tenetur eveniet vitae quo quia ratione ipsum? Earum, culpa.
+                    br
+                    h4 Ipsum
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laboriosam est sapiente. Tempora, assumenda molestias maxime ullam excepturi officia beatae, voluptatibus tenetur eveniet vitae quo quia ratione ipsum? Earum, culpa.
+                    | Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laboriosam est sapiente. Tempora, assumenda molestias maxime ullam excepturi officia beatae, voluptatibus tenetur eveniet vitae quo quia ratione ipsum? Earum, culpa.
+                    

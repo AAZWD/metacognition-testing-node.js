@@ -155,3 +155,58 @@ $det2: rgb(241, 203, 96);
 .tData{
     text-align: left;
 }
+
+//dash
+#dashboard h4{
+    color: $hed-text-alt;
+    text-align: center;
+    font-weight: 400;
+}
+#dashboard p{
+    color: $det1;
+    text-align: center;
+    font-weight: 500;
+    font-size: 30px;
+}
+#dashboard h3{
+    color: $hed-text;
+    font-weight: 400;
+}
+
+#select{
+    color: $hed-text-alt;
+    font-weight: 400;
+    text-align: center;
+}
+
+#select select{
+    width: 50%;
+    margin: auto;
+}
+
+#select p{
+    font-size: 20px;
+}
+
+#statsAll, #statsDS{
+    font-weight: 400;
+}
+
+.hide{
+    display: none;
+}
+
+#select span{
+    font-size: 14px;
+}
+
+#blurb{
+    color: $reg-text2;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: left;
+}
+#blurb h4{
+    text-align: left;
+    margin-top: 15px;
+}

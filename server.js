@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -328,14 +327,22 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
                                 } else {
                                     console.log('not authorized');
                                 }
-                                res.render('user/dashboard',
-                                    {
-                                        fname: fname,
-                                        lname: lname,
-                                        date: date,
-                                        page: 'Dashboard'
+                                testCollection.find({ uID: req.session.user[0]._id }, function (err2, result2) {
+                                    if (!err2) {
+                                        console.log(JSON.stringify(result2, null, 2))
+                                        res.render('user/dashboard',
+                                            {
+                                                fname: fname,
+                                                lname: lname,
+                                                date: date,
+                                                page: 'Dashboard',
+                                                tests: JSON.stringify(result2, null, 2)
+                                            }
+                                        );
+                                    } else {
+                                        console.log('test', err2)
                                     }
-                                );
+                                });
                             });
                         });
                 }
@@ -363,14 +370,23 @@ app.post('/user/dashboard', urlencodedParser, (req, res) => {
                         } else {
                             console.log('not authorized');
                         }
-                        res.render('user/dashboard',
-                            {
-                                fname: fname,
-                                lname: lname,
-                                date: date,
-                                page: 'Dashboard'
+                        testCollection.find({ uID: req.session.user[0]._id }, function (err2, result2) {
+                            if (!err2) {
+                                console.log(JSON.stringify(result2, null, 2))
+                                res.render('user/dashboard',
+                                    {
+                                        fname: fname,
+                                        lname: lname,
+                                        date: date,
+                                        page: 'Dashboard',
+                                        tests: JSON.stringify(result2, null, 2)
+                                    }
+                                );
+                            } else {
+                                console.log('test', err2)
                             }
-                        );
+                        });
+
                     });
                     //user email + pass combo not in document
                 } else {
