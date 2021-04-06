@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //access static content
 app.use(express.static('public'));
@@ -17,7 +17,8 @@ const mongoose = require('mongoose');
 const userCollection = require('./uSchema');
 const patientCollection = require('./pSchema');
 const testCollection = require('./tSchema');
-const connectionString = "mongodb+srv://comit:comit@cluster0.ulggk.mongodb.net/cma?retryWrites=true&w=majority";
+//const connectionString = "mongodb+srv://comit:comit@cluster0.ulggk.mongodb.net/cma?retryWrites=true&w=majority";
+const connectionString = process.env.MONGODB_URI;
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on("error", function (error) {
