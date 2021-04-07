@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const port = process.env.PORT || 5000;
+const port = 3000;
 
 //access static content
 app.use(express.static('public'));
