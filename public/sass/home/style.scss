@@ -1,9 +1,5 @@
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
-
-
 $general-bg: rgb(255, 255, 255);
-
-
 
 $text-col-1: #494E6B;
 $text-col-2: #e79821;
@@ -12,13 +8,12 @@ $link-bg: #99A8D0;
 
 @include media-breakpoint-down(sm) {
     body{
-        background-image: url('../../img/background2.png');
+        background-image: url('../../../img/background2.png');
     }
 }
 
-
 body {
-    background-image: url('../../img/background.png');
+    background-image: url('../../../img/background.png');
     background-color: $general-bg;
     background-attachment: fixed;
     background-position: center;

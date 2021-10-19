@@ -1,4 +1,6 @@
 node_modules
 template.jpg
 Site Map.png
-.vscode
+.vscode/
+extras.txt
+public/css/
