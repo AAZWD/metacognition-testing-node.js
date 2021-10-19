@@ -22,7 +22,7 @@ Pug
 
 ## Usage
 Compile sccs  
-`npm scss`  
+`npm run scss`  
 
 Serving the app  
 `npm start`  
