@@ -20,3 +20,8 @@ Mongoose
 Bootstrap  
 Pug  
 
+## Usage
+Compile sccs
+    npm scss
+Serving the app
+    npm start
