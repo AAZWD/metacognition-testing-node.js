@@ -21,7 +21,7 @@ Bootstrap
 Pug  
 
 ## Usage
-Compile sccs
-    npm scss
-Serving the app
-    npm start
+Compile sccs  
+    npm scss  
+Serving the app  
+    npm start  
