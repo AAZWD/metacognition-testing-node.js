@@ -22,8 +22,8 @@ Pug
 
 ## Usage
 Compile sccs  
-    npm scss  
+`npm scss`  
 
 Serving the app  
-    npm start  
-    
+`npm start`  
+
