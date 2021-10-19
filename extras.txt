@@ -1,5 +1,0 @@
-1. AWAIT/ASYNC db functions see screenshot
-2. accessibility:
-    change fomrs to alwasy have labels
-    forms should have fieldsets and legends
-    
